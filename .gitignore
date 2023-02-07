@@ -1,0 +1,7 @@
+/backend/venv
+/backend/deklaracijos/deklaracijos/__pycache__
+/backend/deklaracijos/deklaracijos/settings.py
+/backend/deklaracijos/__pycache__
+/backend/deklaracijos/users/__pycache__
+/backend/deklaracijos/passwords.py
+/backend/deklaracijos/users/migrations/__pycache__
