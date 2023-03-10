@@ -1,3 +1,12 @@
 /backend/venv
 /backend/deklaracijos/deklaracijos/__pycache__
+/backend/deklaracijos/deklaracijos/settings.py
 /backend/deklaracijos/__pycache__
+/backend/deklaracijos/users/__pycache__
+/backend/deklaracijos/passwords.py
+/backend/deklaracijos/users/migrations/__pycache__
+/backend/users/__pycache__
+/backend/backend/__pycache__
+/backend/passwords.py
+/backend/users/migrations/__pycache__
+/backend/__pycache__/passwords.cpython-311.pyc
