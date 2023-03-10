@@ -28,8 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework_swagger',
     'rest_framework',
-    'rest_framework.authtoken',
-    'corsheaders',
+    'knox',
     'users',
 ]
 
@@ -41,10 +40,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
 ]
 
-ROOT_URLCONF = 'deklaracijos.urls'
+ROOT_URLCONF = 'backend.urls'
 
 TEMPLATES = [
     {
@@ -62,7 +60,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'deklaracijos.wsgi.application'
+WSGI_APPLICATION = 'backend.wsgi.application'
 
 
 # Database
@@ -122,17 +120,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
-   'DEFAULT_PERMISSION_CLASSES': [
-       'rest_framework.permissions.IsAuthenticated',
-   ],
    'DEFAULT_AUTHENTICATION_CLASSES': (
-       'rest_framework.authentication.SessionAuthentication',
-       'rest_framework.authentication.TokenAuthentication',
+       'knox.auth.TokenAuthentication',
    )
 }
-
-CORS_ALLOWED_ORIGINS = [
-   "http://localhost:4200",
-]
-
-AUTH_USER_MODEL = 'users.User'
