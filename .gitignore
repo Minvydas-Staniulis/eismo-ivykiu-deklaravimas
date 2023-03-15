@@ -10,3 +10,4 @@
 /backend/passwords.py
 /backend/users/migrations/__pycache__
 /backend/__pycache__/passwords.cpython-311.pyc
+/frontend/.vscode
