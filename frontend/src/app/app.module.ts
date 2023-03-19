@@ -18,12 +18,18 @@ import { MatIconModule } from '@angular/material/icon';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomepageComponent } from './components/homepage/homepage.component';
+import { MyVehiclesComponent } from './components/my-vehicles/my-vehicles.component';
+import { MyDeclarationsComponent } from './components/my-declarations/my-declarations.component';
+import { DamageCalculatorComponent } from './components/damage-calculator/damage-calculator.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    HomepageComponent
+    HomepageComponent,
+    MyVehiclesComponent,
+    MyDeclarationsComponent,
+    DamageCalculatorComponent
   ],
   imports: [
     BrowserModule,
