@@ -21,6 +21,7 @@ import { HomepageComponent } from './components/homepage/homepage.component';
 import { MyVehiclesComponent } from './components/my-vehicles/my-vehicles.component';
 import { MyDeclarationsComponent } from './components/my-declarations/my-declarations.component';
 import { DamageCalculatorComponent } from './components/damage-calculator/damage-calculator.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -29,12 +30,13 @@ import { DamageCalculatorComponent } from './components/damage-calculator/damage
     HomepageComponent,
     MyVehiclesComponent,
     MyDeclarationsComponent,
-    DamageCalculatorComponent
+    DamageCalculatorComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    HttpClientModule,
 
     MatSlideToggleModule,
     MatInputModule,
@@ -46,9 +48,9 @@ import { DamageCalculatorComponent } from './components/damage-calculator/damage
     MatIconModule,
 
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

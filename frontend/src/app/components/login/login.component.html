@@ -1,28 +1,30 @@
 <div class="flex items-center justify-center h-screen">
   <mat-card>
     <div class="flex flex-row">
-    <form class="flex flex-col">
-      <mat-form-field>
-        <input
-          matInput
-          placeholder="Vartotojo vardas"
-          [(ngModel)]="email"
-          name="email"
-          required
-        />
-      </mat-form-field>
-      <mat-form-field>
-        <input
-          matInput
-          placeholder="Slaptažodis"
-          [(ngModel)]="password"
-          name="password"
-          type="password"
-          required
-        />
-      </mat-form-field>
-      <button mat-raised-button color="primary" (click)="login()">Prisijungti</button>
-    </form>
-  </div>
+      <form class="flex flex-col">
+        <mat-form-field>
+          <input
+            matInput
+            placeholder="Vartotojo Vardas"
+            [(ngModel)]="username"
+            name="email"
+            required
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            placeholder="Slaptažodis"
+            [(ngModel)]="password"
+            name="password"
+            type="password"
+            required
+          />
+        </mat-form-field>
+        <button mat-raised-button color="primary" (click)="login()">
+          Prisijungti
+        </button>
+      </form>
+    </div>
   </mat-card>
 </div>
