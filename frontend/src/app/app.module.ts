@@ -22,6 +22,7 @@ import { MyVehiclesComponent } from './components/my-vehicles/my-vehicles.compon
 import { MyDeclarationsComponent } from './components/my-declarations/my-declarations.component';
 import { DamageCalculatorComponent } from './components/damage-calculator/damage-calculator.component';
 import { HttpClientModule } from '@angular/common/http';
+import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { HttpClientModule } from '@angular/common/http';
     MyVehiclesComponent,
     MyDeclarationsComponent,
     DamageCalculatorComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,

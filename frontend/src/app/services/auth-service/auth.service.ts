@@ -12,6 +12,17 @@ interface LoginResponse {
   token: string;
 }
 
+interface RegisterResponse {
+  user_info: {
+    id: number;
+    username: string;
+    email: string;
+    first_name: string;
+    last_name: string;
+  };
+  token: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -36,6 +47,33 @@ export class AuthService {
       }),
       catchError((error) => {
         console.log('Login error:', error);
+        return of(false);
+      })
+    );
+  }
+
+  register(
+    username: string,
+    password: string,
+    email: string,
+    first_name: string,
+    last_name: string
+  ) {
+    const url = this.baseUrl + 'register/';
+    const data = { username, password, email, first_name, last_name };
+
+    console.log(data);
+
+    return this.http.post<RegisterResponse>(url, data).pipe(
+      map((response) => {
+        console.log(response);
+        if (response && response.token) {
+          return true;
+        }
+        return false;
+      }),
+      catchError((error) => {
+        console.log(error);
         return of(false);
       })
     );

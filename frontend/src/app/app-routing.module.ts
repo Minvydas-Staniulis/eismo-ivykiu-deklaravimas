@@ -5,6 +5,7 @@ import { HomepageComponent } from './components/homepage/homepage.component';
 import { LoginComponent } from './components/login/login.component';
 import { MyDeclarationsComponent } from './components/my-declarations/my-declarations.component';
 import { MyVehiclesComponent } from './components/my-vehicles/my-vehicles.component';
+import { RegisterComponent } from './components/register/register.component';
 import {
   AuthGuard,
   LoginGuard,
@@ -15,6 +16,11 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+    canActivate: [LoginGuard],
+  },
+  {
+    path: 'register',
+    component: RegisterComponent,
     canActivate: [LoginGuard],
   },
   {
