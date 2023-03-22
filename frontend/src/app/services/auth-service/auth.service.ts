@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 
@@ -26,6 +26,7 @@ export class AuthService {
 
     return this.http.post<LoginResponse>(url, data).pipe(
       map((response) => {
+        console.log(response);
         if (response && response.token) {
           localStorage.setItem('token', response.token);
           localStorage.setItem('user', JSON.stringify(response.user_info));
@@ -52,9 +53,12 @@ export class AuthService {
     return JSON.parse(userString);
   }
 
-  logout(): void {
+  logout() {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Token ${token}`);
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    return this.http.post('http://127.0.0.1:8000/api/logout/', {}, { headers });
   }
 
   isAuthenticated(): boolean {
