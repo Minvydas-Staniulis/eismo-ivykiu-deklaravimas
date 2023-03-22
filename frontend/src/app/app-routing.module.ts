@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DamageCalculatorComponent } from './components/damage-calculator/damage-calculator.component';
+import { DeclarationFillComponent } from './components/declaration-fill/declaration-fill.component';
 import { HomepageComponent } from './components/homepage/homepage.component';
 import { LoginComponent } from './components/login/login.component';
 import { MyDeclarationsComponent } from './components/my-declarations/my-declarations.component';
@@ -31,6 +32,11 @@ const routes: Routes = [
       { path: 'my-vehicles', component: MyVehiclesComponent },
       { path: 'damage-calculator', component: DamageCalculatorComponent },
     ],
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'declaration-fill',
+    component: DeclarationFillComponent,
     canActivate: [AuthGuard],
   },
 ];

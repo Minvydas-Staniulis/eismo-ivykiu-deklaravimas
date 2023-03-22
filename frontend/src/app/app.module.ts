@@ -23,6 +23,7 @@ import { MyDeclarationsComponent } from './components/my-declarations/my-declara
 import { DamageCalculatorComponent } from './components/damage-calculator/damage-calculator.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RegisterComponent } from './components/register/register.component';
+import { DeclarationFillComponent } from './components/declaration-fill/declaration-fill.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { RegisterComponent } from './components/register/register.component';
     MyDeclarationsComponent,
     DamageCalculatorComponent,
     RegisterComponent,
+    DeclarationFillComponent,
   ],
   imports: [
     BrowserModule,
