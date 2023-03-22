@@ -6,3 +6,9 @@
 .logout:hover {
     color: rgb(251, 79, 79);
 }
+
+.logo{
+    filter: invert(1) sepia(1) saturate(1) hue-rotate(175deg);
+    height: 55px;
+    width: 110px;
+}

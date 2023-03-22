@@ -62,9 +62,14 @@
             required
           />
         </mat-form-field>
-        <button mat-raised-button color="primary" (click)="register()">
-          Registruotis
-        </button>
+        <div class="space-x-4">
+          <button mat-raised-button color="primary" (click)="register()">
+            Registruotis
+          </button>
+          <button mat-raised-button color="warn" (click)="goToLogin()">
+            Atšaukti
+          </button>
+        </div>
       </form>
     </div>
   </mat-card>
