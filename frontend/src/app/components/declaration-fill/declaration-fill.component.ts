@@ -5,6 +5,7 @@ import {
   Renderer2,
   ViewChild,
 } from '@angular/core';
+import jsPDF from 'jspdf';
 
 @Component({
   selector: 'app-declaration-fill',
@@ -20,7 +21,7 @@ export class DeclarationFillComponent implements AfterViewInit {
 
   @ViewChild('canvasElement') canvasElement!: ElementRef<HTMLCanvasElement>;
 
-  constructor(private renderer: Renderer2) {}
+  constructor(private elRef: ElementRef, private renderer: Renderer2) {}
 
   ngAfterViewInit() {
     const canvas = this.canvasElement.nativeElement;
@@ -50,5 +51,34 @@ export class DeclarationFillComponent implements AfterViewInit {
     this.renderer.listen(canvas, 'mouseup', (event) => {
       this.isDrawing = false;
     });
+  }
+
+  saveAsPdf() {
+    const drawAreaEl = this.elRef.nativeElement.querySelector('#draw-area');
+    const canvasEl = this.elRef.nativeElement.querySelector('canvas');
+    const ctx = canvasEl.getContext('2d');
+
+    // Create a new PDF document
+    const doc = new jsPDF();
+
+    console.log(doc);
+
+    // Add an image of the canvas to the PDF document
+    setTimeout(() => {
+      const imageData = canvasEl.toDataURL('image/png');
+      doc.addImage(
+        imageData,
+        'PNG',
+        0,
+        0,
+        drawAreaEl.clientWidth,
+        drawAreaEl.clientHeight
+      );
+
+      // Save the PDF document with a delay of 500ms
+      setTimeout(() => {
+        doc.save('drawing.pdf');
+      }, 500);
+    }, 100);
   }
 }

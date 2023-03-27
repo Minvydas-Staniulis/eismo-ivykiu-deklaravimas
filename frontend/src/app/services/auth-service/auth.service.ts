@@ -39,6 +39,7 @@ export class AuthService {
       map((response) => {
         console.log(response);
         if (response && response.token) {
+          console.log(response.token);
           localStorage.setItem('token', response.token);
           localStorage.setItem('user', JSON.stringify(response.user_info));
           return true;
