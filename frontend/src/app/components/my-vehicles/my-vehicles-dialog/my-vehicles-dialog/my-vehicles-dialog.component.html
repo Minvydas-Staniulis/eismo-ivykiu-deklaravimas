@@ -1,9 +1,16 @@
 <h2 mat-dialog-title>Pridėti naują transporto priemonę</h2>
 <mat-dialog-content class="mat-typography">
   <h3>Automobilio markė</h3>
-  <select id="car-make">
+  <select id="car-make" [(ngModel)]="selectedMake" (change)="loadModels()">
     <option *ngFor="let carMake of carMakes" [value]="carMake.id">
       {{ carMake.name }}
+    </option>
+  </select>
+
+  <h3>Automobilio modelis</h3>
+  <select id="car-model" [(ngModel)]="selectedModel">
+    <option *ngFor="let carModel of carModels" [value]="carModel.id">
+      {{ carModel.name }}
     </option>
   </select>
 </mat-dialog-content>

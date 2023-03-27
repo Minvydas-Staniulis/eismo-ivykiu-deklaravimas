@@ -20,5 +20,5 @@ urlpatterns = [
 
     # cars make/model API
     path('api/car-makes/', car_make_list, name='car_make_list'),
-    path('api/car-model/<int:make_id>/', car_model_list, name='car_model_list')
+    path('api/car-models/', car_model_list, name='car_model_list')
 ]

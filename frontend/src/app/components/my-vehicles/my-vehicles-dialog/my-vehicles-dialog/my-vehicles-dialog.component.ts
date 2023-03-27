@@ -8,6 +8,9 @@ import { MyVehiclesService } from 'src/app/services/my-vehicles/my-vehicles.serv
 })
 export class MyVehiclesDialogComponent implements OnInit {
   carMakes!: any[];
+  carModels!: any[];
+  selectedMake!: number;
+  selectedModel!: number;
 
   constructor(private carService: MyVehiclesService) {}
 
@@ -19,5 +22,11 @@ export class MyVehiclesDialogComponent implements OnInit {
     this.carService
       .getMakes()
       .subscribe((carMakes) => (this.carMakes = carMakes));
+  }
+
+  loadModels() {
+    this.carService.getModels(this.selectedMake).subscribe((models) => {
+      this.carModels = models;
+    });
   }
 }

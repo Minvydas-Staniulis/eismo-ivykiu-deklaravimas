@@ -36,4 +36,9 @@ export class MyVehiclesService {
     const url = this.baseUrl + 'car-makes/';
     return this.http.get<any[]>(url);
   }
+
+  getModels(makeId: number) {
+    const url = this.baseUrl + `car-models/?make_id=${makeId}`;
+    return this.http.get<any[]>(url);
+  }
 }
