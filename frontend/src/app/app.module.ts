@@ -15,6 +15,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomepageComponent } from './components/homepage/homepage.component';
@@ -24,6 +25,7 @@ import { DamageCalculatorComponent } from './components/damage-calculator/damage
 import { HttpClientModule } from '@angular/common/http';
 import { RegisterComponent } from './components/register/register.component';
 import { DeclarationFillComponent } from './components/declaration-fill/declaration-fill.component';
+import { MyVehiclesDialogComponent } from './components/my-vehicles/my-vehicles-dialog/my-vehicles-dialog/my-vehicles-dialog.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,7 @@ import { DeclarationFillComponent } from './components/declaration-fill/declarat
     DamageCalculatorComponent,
     RegisterComponent,
     DeclarationFillComponent,
+    MyVehiclesDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,6 +53,7 @@ import { DeclarationFillComponent } from './components/declaration-fill/declarat
     MatSidenavModule,
     MatListModule,
     MatIconModule,
+    MatDialogModule,
 
     FormsModule,
     ReactiveFormsModule,

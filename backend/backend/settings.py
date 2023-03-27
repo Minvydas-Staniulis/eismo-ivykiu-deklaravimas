@@ -32,6 +32,8 @@ INSTALLED_APPS = [
     'knox',
     'users',
     'cars',
+    'carsMake',
+    'carsModel',
 ]
 
 MIDDLEWARE = [

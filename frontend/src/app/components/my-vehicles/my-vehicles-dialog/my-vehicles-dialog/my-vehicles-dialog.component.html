@@ -1,0 +1,13 @@
+<h2 mat-dialog-title>Pridėti naują transporto priemonę</h2>
+<mat-dialog-content class="mat-typography">
+  <h3>Automobilio markė</h3>
+  <select id="car-make">
+    <option *ngFor="let carMake of carMakes" [value]="carMake.id">
+      {{ carMake.name }}
+    </option>
+  </select>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Atšaukti</button>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Pridėti</button>
+</mat-dialog-actions>
