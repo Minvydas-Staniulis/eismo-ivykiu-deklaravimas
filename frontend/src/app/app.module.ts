@@ -16,6 +16,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomepageComponent } from './components/homepage/homepage.component';
@@ -54,6 +56,8 @@ import { MyVehiclesDialogComponent } from './components/my-vehicles/my-vehicles-
     MatListModule,
     MatIconModule,
     MatDialogModule,
+    MatSelectModule,
+    MatTableModule,
 
     FormsModule,
     ReactiveFormsModule,

@@ -1,20 +1,78 @@
 <h2 mat-dialog-title>Pridėti naują transporto priemonę</h2>
 <mat-dialog-content class="mat-typography">
-  <h3>Automobilio markė</h3>
-  <select id="car-make" [(ngModel)]="selectedMake" (change)="loadModels()">
-    <option *ngFor="let carMake of carMakes" [value]="carMake.id">
-      {{ carMake.name }}
-    </option>
-  </select>
+  <form [formGroup]="carForm" class="flex flex-col">
+    <mat-form-field appearance="fill">
+      <mat-label>Automobilio markė</mat-label>
+      <mat-select formControlName="makeId" (selectionChange)="loadModels()">
+        <mat-option *ngFor="let carMake of carMakes" [value]="carMake.id">
+          {{ carMake.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="carForm.controls['makeId'].hasError('required')">
+        Pasirinkite automobilio markę
+      </mat-error>
+    </mat-form-field>
 
-  <h3>Automobilio modelis</h3>
-  <select id="car-model" [(ngModel)]="selectedModel">
-    <option *ngFor="let carModel of carModels" [value]="carModel.id">
-      {{ carModel.name }}
-    </option>
-  </select>
+    <mat-form-field appearance="fill">
+      <mat-label>Automobilio modelis</mat-label>
+      <mat-select
+        formControlName="modelId"
+        [disabled]="
+          (carModels && carModels.length === 0) ||
+          !carForm.controls['makeId'].value
+        "
+      >
+        <mat-option *ngFor="let carModel of carModels" [value]="carModel.id">
+          {{ carModel.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="carForm.controls['modelId'].hasError('required')">
+        Pasirinkite automobilio modelį
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Metai</mat-label>
+      <input
+        matInput
+        formControlName="year"
+        type="number"
+        required
+        min="1886"
+        max="2023"
+      />
+      <mat-error *ngIf="carForm.controls['year'].hasError('required')">
+        Metai yra privalomi
+      </mat-error>
+      <mat-error *ngIf="carForm.controls['year'].hasError('min')">
+        Metai turi būti ne mažesni nei 1886
+      </mat-error>
+      <mat-error *ngIf="carForm.controls['year'].hasError('max')">
+        Metai turi būti ne didesni nei 2023
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Valstybinis numeris</mat-label>
+      <input matInput formControlName="licensePlate" type="text" required />
+      <mat-error *ngIf="carForm.controls['licensePlate'].hasError('required')">
+        Valstybinis numeris yra privalomas
+      </mat-error>
+      <mat-error *ngIf="carForm.controls['licensePlate'].hasError('pattern')">
+        Valstybinis numeris turi būti formatu XXX000
+      </mat-error>
+    </mat-form-field>
+  </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Atšaukti</button>
-  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Pridėti</button>
+  <button
+    mat-button
+    [mat-dialog-close]="carForm.valid"
+    cdkFocusInitial
+    [disabled]="!carForm.valid"
+    (click)="createCar()"
+  >
+    Pridėti
+  </button>
 </mat-dialog-actions>
