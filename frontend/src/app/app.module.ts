@@ -28,6 +28,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RegisterComponent } from './components/register/register.component';
 import { DeclarationFillComponent } from './components/declaration-fill/declaration-fill.component';
 import { MyVehiclesDialogComponent } from './components/my-vehicles/my-vehicles-dialog/my-vehicles-dialog/my-vehicles-dialog.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { MyVehiclesDialogComponent } from './components/my-vehicles/my-vehicles-
     MatDialogModule,
     MatSelectModule,
     MatTableModule,
+    MatPaginatorModule,
 
     FormsModule,
     ReactiveFormsModule,

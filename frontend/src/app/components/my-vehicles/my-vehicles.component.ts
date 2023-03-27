@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { MyVehiclesService } from 'src/app/services/my-vehicles/my-vehicles.service';
 import { MyVehiclesDialogComponent } from './my-vehicles-dialog/my-vehicles-dialog/my-vehicles-dialog.component';
 
@@ -11,6 +13,14 @@ import { MyVehiclesDialogComponent } from './my-vehicles-dialog/my-vehicles-dial
 export class MyVehiclesComponent implements OnInit {
   displayedColumns: string[] = ['id', 'make', 'model', 'year', 'license_plate'];
   cars!: any[];
+
+  dataSource!: MatTableDataSource<any>;
+
+  totalItems!: number;
+  pageIndex: number = 0;
+  pageSize: number = 10;
+
+  @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
 
   constructor(
     public dialog: MatDialog,
@@ -24,12 +34,21 @@ export class MyVehiclesComponent implements OnInit {
   openDialog() {
     const dialogRef = this.dialog.open(MyVehiclesDialogComponent);
 
-    dialogRef.afterClosed().subscribe();
+    dialogRef.afterClosed().subscribe(() => {
+      this.loadCars();
+    });
   }
 
   loadCars() {
     this.carService.getCars().subscribe((cars) => {
-      this.cars = cars;
+      this.dataSource = new MatTableDataSource(cars);
+      this.totalItems = cars.length;
+      this.dataSource.paginator = this.paginator;
     });
+  }
+
+  pageChanged(event: PageEvent) {
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
   }
 }
