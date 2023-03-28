@@ -1,6 +1,8 @@
-<button mat-button color="primary" (click)="openDialog()">
-  Pridėti transporto priemonę
-</button>
+<div class="flex justify-end my-4">
+  <button mat-raised-button color="primary" (click)="openDialog()">
+    Pridėti transporto priemonę
+  </button>
+</div>
 
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-full">
   <ng-container matColumnDef="id">

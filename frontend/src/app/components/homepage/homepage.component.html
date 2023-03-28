@@ -1,10 +1,27 @@
 <mat-toolbar color="primary" class="flex flex-row">
   <mat-icon svgIcon="deklaratorius" class="logo"></mat-icon>
   <span class="flex-grow"></span>
-  <button (click)="logout()" class="flex items-center logout">
-    Atsijungti
-    <mat-icon class="pl-2">exit_to_app</mat-icon>
+  <button mat-icon-button [matMenuTriggerFor]="menu" class="flex items-center">
+    <mat-icon>face</mat-icon>
   </button>
+  <mat-menu
+    #menu="matMenu"
+    class="bg-white shadow-lg rounded-md border border-gray-200"
+  >
+    <div class="p-4">
+      <p class="text-gray-600 font-medium mb-4">
+        Prisijungęs {{ userInfo.first_name }}
+      </p>
+      <button
+        mat-menu-item
+        (click)="logout()"
+        class="flex items-center hover:bg-gray-100 transition duration-150 ease-in-out"
+      >
+        <mat-icon class="text-gray-600">exit_to_app</mat-icon>
+        <span class="pl-2 text-gray-700 font-medium">Atsijungti</span>
+      </button>
+    </div>
+  </mat-menu>
 </mat-toolbar>
 
 <mat-drawer-container class="h-full">
@@ -23,6 +40,7 @@
         routerLinkActive="active"
         >Žalos Skaičiuoklė</a
       >
+      <a mat-list-item>{{ userInfo.first_name }}</a>
     </mat-nav-list>
   </mat-drawer>
   <mat-drawer-content>

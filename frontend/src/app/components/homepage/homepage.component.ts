@@ -8,9 +8,17 @@ import { AuthService } from 'src/app/services/auth-service/auth.service';
   styleUrls: ['./homepage.component.scss'],
 })
 export class HomepageComponent implements OnInit {
+  userInfo: any;
+
   constructor(private authService: AuthService, private router: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const userInfoString = localStorage.getItem('user');
+    if (userInfoString) {
+      this.userInfo = JSON.parse(userInfoString);
+      console.log(this.userInfo.first_name);
+    }
+  }
 
   logout() {
     this.authService.logout().subscribe(

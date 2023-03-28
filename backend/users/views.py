@@ -4,11 +4,12 @@ from rest_framework.authtoken.serializers import AuthTokenSerializer
 from knox.auth import AuthToken
 from .serializers import RegisterSerializer
 
+
 @api_view(['POST'])
 def login_api(request):
     serializer = AuthTokenSerializer(data=request.data)
     serializer.is_valid(raise_exception=True)
-    
+
     user = serializer.validated_data['user']
     _, token = AuthToken.objects.create(user)
 
@@ -17,9 +18,11 @@ def login_api(request):
             'id': user.id,
             'username': user.username,
             'email': user.email,
+            'first_name': user.first_name,
         },
         'token': token
     })
+
 
 @api_view(['GET'])
 def get_user_data(request):
@@ -34,8 +37,9 @@ def get_user_data(request):
                 'last_name': user.last_name,
             },
         })
-    
+
     return Response({'error': 'not authenticated'}, status=400)
+
 
 @api_view(['POST'])
 def register_api(request):
@@ -55,6 +59,3 @@ def register_api(request):
         },
         'token': token
     })
-
-
-
