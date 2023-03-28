@@ -30,6 +30,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { DeclarationFillComponent } from './components/declaration-fill/declaration-fill.component';
 import { MyVehiclesDialogComponent } from './components/my-vehicles/my-vehicles-dialog/my-vehicles-dialog/my-vehicles-dialog.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { NewsComponent } from './components/news/news.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     RegisterComponent,
     DeclarationFillComponent,
     MyVehiclesDialogComponent,
+    NewsComponent,
   ],
   imports: [
     BrowserModule,
