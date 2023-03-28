@@ -2,9 +2,11 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  OnInit,
   Renderer2,
   ViewChild,
 } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import jsPDF from 'jspdf';
 
 @Component({
@@ -12,7 +14,7 @@ import jsPDF from 'jspdf';
   templateUrl: './declaration-fill.component.html',
   styleUrls: ['./declaration-fill.component.scss'],
 })
-export class DeclarationFillComponent implements AfterViewInit {
+export class DeclarationFillComponent implements AfterViewInit, OnInit {
   private isDrawing = false;
   private startX!: number;
   private startY!: number;
@@ -20,8 +22,16 @@ export class DeclarationFillComponent implements AfterViewInit {
   private currentY!: number;
 
   @ViewChild('canvasElement') canvasElement!: ElementRef<HTMLCanvasElement>;
+  isLinear = true;
+  acceptTerms!: FormGroup;
+  firstFormGroup!: FormGroup;
+  secondFormGroup!: FormGroup;
 
-  constructor(private elRef: ElementRef, private renderer: Renderer2) {}
+  constructor(
+    private elRef: ElementRef,
+    private renderer: Renderer2,
+    private _formBuilder: FormBuilder
+  ) {}
 
   ngAfterViewInit() {
     const canvas = this.canvasElement.nativeElement;
@@ -50,6 +60,19 @@ export class DeclarationFillComponent implements AfterViewInit {
 
     this.renderer.listen(canvas, 'mouseup', (event) => {
       this.isDrawing = false;
+    });
+  }
+
+  ngOnInit() {
+    this.acceptTerms = this._formBuilder.group({
+      options: ['', Validators.required],
+    });
+
+    this.firstFormGroup = this._formBuilder.group({
+      name: ['', Validators.required],
+    });
+    this.secondFormGroup = this._formBuilder.group({
+      options: ['', Validators.required],
     });
   }
 

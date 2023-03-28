@@ -1,4 +1,4 @@
-<div id="draw-area">
+<!-- <div id="draw-area">
   <canvas
     #canvasElement
     width="500"
@@ -6,4 +6,117 @@
     style="border: 1px solid black"
   ></canvas>
   <button (click)="saveAsPdf()">Save as PDF</button>
-</div>
+</div> -->
+
+<mat-horizontal-stepper [linear]="isLinear">
+  <mat-step [stepControl]="acceptTerms">
+    <ng-template matStepLabel>Sąlygos</ng-template>
+    <mat-card>
+      <mat-card-content>
+        <form [formGroup]="acceptTerms">
+          <div class="flex flex-col">
+            <p>Nėra sužalotų asmenų</p>
+            <p>Susidūrė tik 2 transporto priemonės</p>
+            <p>Nėra padaryta žala kitam trečiųjų asmenų turtui</p>
+            <p>Nėra sužalotų asmenų</p>
+          </div>
+          <mat-radio-group formControlName="options">
+            <mat-radio-button value="option1">Option 1</mat-radio-button>
+            <mat-radio-button value="option2">Option 2</mat-radio-button>
+            <mat-radio-button value="option3">Option 3</mat-radio-button>
+          </mat-radio-group>
+        </form>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button matStepperNext>Pirmyn</button>
+      </mat-card-actions>
+    </mat-card>
+  </mat-step>
+
+  <mat-step [stepControl]="firstFormGroup">
+    <ng-template matStepLabel>Vairuotojų duomenys</ng-template>
+    <mat-card>
+      <mat-card-content>
+        <form [formGroup]="firstFormGroup">
+          <mat-form-field>
+            <input matInput placeholder="Name" formControlName="name" />
+          </mat-form-field>
+        </form>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button matStepperPrevious>Atgal</button>
+        <button mat-button matStepperNext>Pirmyn</button>
+      </mat-card-actions>
+    </mat-card>
+  </mat-step>
+
+  <mat-step [stepControl]="secondFormGroup">
+    <ng-template matStepLabel>Select Options</ng-template>
+    <mat-card>
+      <mat-card-content>
+        <form [formGroup]="secondFormGroup">
+          <mat-radio-group formControlName="options">
+            <mat-radio-button value="option1">Option 1</mat-radio-button>
+            <mat-radio-button value="option2">Option 2</mat-radio-button>
+            <mat-radio-button value="option3">Option 3</mat-radio-button>
+          </mat-radio-group>
+        </form>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button matStepperPrevious>Atgal</button>
+        <button mat-button matStepperNext>Pirmyn</button>
+      </mat-card-actions>
+    </mat-card>
+  </mat-step>
+
+  <mat-step label="Draw">
+    <mat-card-content>
+      <div id="draw-area">
+        <canvas
+          #canvasElement
+          width="500"
+          height="300"
+          style="border: 1px solid black"
+        ></canvas>
+      </div>
+      <button (click)="saveAsPdf()">Save as PDF</button>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button mat-button matStepperPrevious>Atgal</button>
+      <button mat-button matStepperNext>Pirmyn</button>
+    </mat-card-actions>
+  </mat-step>
+
+  <mat-step [stepControl]="secondFormGroup">
+    <ng-template matStepLabel>Select Options</ng-template>
+    <mat-card>
+      <mat-card-content>
+        <form [formGroup]="secondFormGroup">
+          <mat-radio-group formControlName="options">
+            <mat-radio-button value="option1">Option 1</mat-radio-button>
+            <mat-radio-button value="option2">Option 2</mat-radio-button>
+            <mat-radio-button value="option3">Option 3</mat-radio-button>
+          </mat-radio-group>
+        </form>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button matStepperPrevious>Atgal</button>
+        <button mat-button matStepperNext>Pirmyn</button>
+      </mat-card-actions>
+    </mat-card>
+  </mat-step>
+
+  <mat-step>
+    <ng-template matStepLabel>Nuotraukos</ng-template>
+    <mat-card>
+      <mat-card-content>
+        <p>Upload your picture here.</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button matStepperPrevious>Atgal</button>
+        <button mat-button matStepperNext>Pirmyn</button>
+      </mat-card-actions>
+    </mat-card>
+  </mat-step>
+</mat-horizontal-stepper>

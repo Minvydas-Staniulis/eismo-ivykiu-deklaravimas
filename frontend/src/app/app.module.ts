@@ -19,6 +19,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatRadioModule } from '@angular/material/radio';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomepageComponent } from './components/homepage/homepage.component';
@@ -31,6 +33,7 @@ import { DeclarationFillComponent } from './components/declaration-fill/declarat
 import { MyVehiclesDialogComponent } from './components/my-vehicles/my-vehicles-dialog/my-vehicles-dialog/my-vehicles-dialog.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { NewsComponent } from './components/news/news.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
@@ -64,6 +67,9 @@ import { NewsComponent } from './components/news/news.component';
     MatTableModule,
     MatPaginatorModule,
     MatMenuModule,
+    MatStepperModule,
+    MatFormFieldModule,
+    MatRadioModule,
 
     FormsModule,
     ReactiveFormsModule,
