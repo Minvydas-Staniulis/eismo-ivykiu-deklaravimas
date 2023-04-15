@@ -259,23 +259,22 @@
     <mat-card>
       <!-- make for 2 cars -->
       <mat-card-content>
-        <form [formGroup]="hitGroup">
-          <mat-form-field>
-            <mat-label>Pasirinkti pirminį smūgį</mat-label>
-            <mat-select formControlName="myFirstHit">
-              <mat-option *ngFor="let hit of hits" [value]="hit">
-                {{ hit }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-          <mat-form-field>
-            <mat-label>Pasirinkti pirminį smūgį</mat-label>
-            <mat-select formControlName="otherFirstHit">
-              <mat-option *ngFor="let hit of hits" [value]="hit">
-                {{ hit }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
+        <form [formGroup]="howGroup">
+          <div *ngFor="let how of hows" class="flex flex-col">
+            <div class="flex flex-row">
+              <mat-checkbox
+                [value]="how.value"
+                [checked]="how.checked"
+                (change)="onMyHowChange($event, how.value)"
+              ></mat-checkbox>
+              <p>{{ how.label }}</p>
+              <mat-checkbox
+                [value]="how.value"
+                [checked]="how.checked"
+                (change)="onOtherHowChange($event, how.value)"
+              ></mat-checkbox>
+            </div>
+          </div>
         </form>
       </mat-card-content>
       <mat-card-actions>

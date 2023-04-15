@@ -21,6 +21,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomepageComponent } from './components/homepage/homepage.component';
@@ -70,6 +71,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatStepperModule,
     MatFormFieldModule,
     MatRadioModule,
+    MatCheckboxModule,
 
     FormsModule,
     ReactiveFormsModule,

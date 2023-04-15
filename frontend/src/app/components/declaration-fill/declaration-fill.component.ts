@@ -6,7 +6,15 @@ import {
   Renderer2,
   ViewChild,
 } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import { MatCheckboxChange } from '@angular/material/checkbox';
+import { MatSelectChange } from '@angular/material/select';
 
 @Component({
   selector: 'app-declaration-fill',
@@ -46,39 +54,66 @@ export class DeclarationFillComponent implements AfterViewInit, OnInit {
     'Kita',
   ];
 
-  how = [
-    { label: 'stovint / sustabdžius', value: 'stop' },
-    { label: 'pradedant važiuoti / atidarant dureles', value: 'stop' },
-    { label: 'stabdant', value: 'stop' },
-    { label: 'išvažiuojant iš stovėjimo vietos', value: 'stop' },
-    { label: 'įvažiuojant į stovėjimo vietą', value: 'stop' },
-    { label: 'įvažiuojant į žiedinę sankryžą', value: 'stop' },
-    { label: 'važiuojant žiedinėje sankryžoje', value: 'stop' },
+  hows = [
+    { label: 'stovint / sustabdžius', value: 'stop', checked: false },
+    {
+      label: 'pradedant važiuoti / atidarant dureles',
+      value: 'stop',
+      checked: false,
+    },
+    { label: 'stabdant', value: 'stop', checked: false },
+    {
+      label: 'išvažiuojant iš stovėjimo vietos',
+      value: 'stop',
+      checked: false,
+    },
+    { label: 'įvažiuojant į stovėjimo vietą', value: 'stop', checked: false },
+    { label: 'įvažiuojant į žiedinę sankryžą', value: 'stop', checked: false },
+    { label: 'važiuojant žiedinėje sankryžoje', value: 'stop', checked: false },
     {
       label:
         'atsitrenkiant į ta pačia kryptimi ir ta pačia kelio juosta važiuojančios transporto priemonės galinę dalį',
       value: 'stop',
+      checked: false,
     },
     {
       label: 'važiuojant ta pačia kryptimi, tačiau kita kelio juosta',
       value: 'stop',
+      checked: false,
     },
-    { label: 'persirikuojant', value: 'stop' },
-    { label: 'lenkiant', value: 'stop' },
-    { label: 'sukant į dešinę', value: 'stop' },
-    { label: 'sukant į kairę', value: 'stop' },
-    { label: 'važiuojant atbuline eiga', value: 'stop' },
-    { label: 'įvažiuojant į priešpriešinio eismo juostą', value: 'stop' },
-    { label: 'sankryžoje atsitrenkiant iš dešinės', value: 'stop' },
+    { label: 'persirikuojant', value: 'stop', checked: false },
+    { label: 'lenkiant', value: 'stop', checked: false },
+    { label: 'sukant į dešinę', value: 'stop', checked: false },
+    { label: 'sukant į kairę', value: 'stop', checked: false },
+    { label: 'važiuojant atbuline eiga', value: 'stop', checked: false },
+    {
+      label: 'įvažiuojant į priešpriešinio eismo juostą',
+      value: 'stop',
+      checked: false,
+    },
+    {
+      label: 'sankryžoje atsitrenkiant iš dešinės',
+      value: 'stop',
+      checked: false,
+    },
     {
       label:
         'nesuteikiant pirmenybės teisės ar nepaisant raudono šviesaforo signalo',
       value: 'stop',
+      checked: false,
     },
   ];
 
   lat!: number;
   lng!: number;
+
+  get myHowControl() {
+    return this.howGroup.get('myHow') as FormArray;
+  }
+
+  get otherHowControl() {
+    return this.howGroup.get('otherHow') as FormArray;
+  }
 
   constructor(private renderer: Renderer2, private _formBuilder: FormBuilder) {}
 
@@ -162,5 +197,32 @@ export class DeclarationFillComponent implements AfterViewInit, OnInit {
       myHow: this._formBuilder.array([]),
       otherHow: this._formBuilder.array([]),
     });
+  }
+
+  onMyHowChange(event: MatCheckboxChange, value: string) {
+    if (event.checked) {
+      this.myHowControl.push(new FormControl(value));
+    } else {
+      const index = this.myHowControl.controls.findIndex(
+        (x) => x.value === value
+      );
+      if (index !== -1) {
+        this.myHowControl.removeAt(index);
+      }
+    }
+    console.log(this.myHowControl.value);
+  }
+
+  onOtherHowChange(event: MatCheckboxChange, value: string) {
+    if (event.checked) {
+      this.otherHowControl.push(new FormControl(value));
+    } else {
+      const index = this.otherHowControl.controls.findIndex(
+        (x) => x.value === value
+      );
+      if (index !== -1) {
+        this.otherHowControl.removeAt(index);
+      }
+    }
   }
 }
