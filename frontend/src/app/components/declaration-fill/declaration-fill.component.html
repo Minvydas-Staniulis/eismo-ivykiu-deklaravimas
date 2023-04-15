@@ -1,14 +1,35 @@
-<!-- <div id="draw-area">
-  <canvas
-    #canvasElement
-    width="500"
-    height="300"
-    style="border: 1px solid black"
-  ></canvas>
-  <button (click)="saveAsPdf()">Save as PDF</button>
-</div> -->
+<mat-horizontal-stepper [linear]="isLinear" class="w-1/2 flex mx-auto h-full">
+  <mat-step>
+    <ng-template matStepLabel>Pradžia</ng-template>
+    <mat-card>
+      <mat-card-content>
+        <div>
+          <div class="flex flex-col items-start">
+            <p>
+              <strong>
+                Prieš pradėdami pildyti, įsitikinkite kad pasirūpinote visomis
+                saugumo priemonėmis
+              </strong>
+            </p>
 
-<mat-horizontal-stepper [linear]="isLinear">
+            <p>Būtinos saugumo priemonės:</p>
+            <div class="pt-2">
+              <p>Įjunkite avarinius žibintus</p>
+              <p>Pastatykite avarinį ženklą pagal KET</p>
+              <p>Apsivilkite liemenę su atšvaitais</p>
+              <p>Jei yra sužalotų asmenų - skambinkite <strong>112</strong></p>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" matStepperNext>
+          Supratau
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </mat-step>
+
   <mat-step [stepControl]="acceptTerms">
     <ng-template matStepLabel>Sąlygos</ng-template>
     <mat-card>
@@ -18,17 +39,25 @@
             <p>Nėra sužalotų asmenų</p>
             <p>Susidūrė tik 2 transporto priemonės</p>
             <p>Nėra padaryta žala kitam trečiųjų asmenų turtui</p>
-            <p>Nėra sužalotų asmenų</p>
+            <p>Abi transporto priemonės yra registruotos Lietuvoje</p>
+            <p>Eismo įvykis įvyko Lietuvoje</p>
+            <p>
+              Eismo įvykio dalyviai sutaria dėl to, kuris vairuotojas yra
+              kaltininkas
+            </p>
           </div>
           <mat-radio-group formControlName="options">
-            <mat-radio-button value="option1">Option 1</mat-radio-button>
-            <mat-radio-button value="option2">Option 2</mat-radio-button>
-            <mat-radio-button value="option3">Option 3</mat-radio-button>
+            <mat-radio-button value="option1" class="pt-4"
+              >Patvirtinu, jog visos sąlygos galioja</mat-radio-button
+            >
           </mat-radio-group>
         </form>
       </mat-card-content>
       <mat-card-actions>
-        <button mat-button matStepperNext>Pirmyn</button>
+        <button mat-raised-button color="accent" matStepperPrevious>
+          Atgal
+        </button>
+        <button mat-raised-button color="primary" matStepperNext>Pirmyn</button>
       </mat-card-actions>
     </mat-card>
   </mat-step>
@@ -38,33 +67,94 @@
     <mat-card>
       <mat-card-content>
         <form [formGroup]="firstFormGroup">
-          <mat-form-field>
-            <input matInput placeholder="Name" formControlName="name" />
-          </mat-form-field>
-        </form>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-button matStepperPrevious>Atgal</button>
-        <button mat-button matStepperNext>Pirmyn</button>
-      </mat-card-actions>
-    </mat-card>
-  </mat-step>
+          <div class="flex flex-row">
+            <div class="flex flex-col">
+              <div>
+                <p>Jūsų valstybiniai numeriai</p>
+                <mat-form-field>
+                  <input
+                    matInput
+                    placeholder="XXX000"
+                    formControlName="myLicensePlate"
+                  />
+                  <mat-error
+                    *ngIf="
+                      firstFormGroup.controls['myLicensePlate'].hasError(
+                        'required'
+                      )
+                    "
+                  >
+                    Valstybinis numeris yra privalomas
+                  </mat-error>
+                  <mat-error
+                    *ngIf="
+                      firstFormGroup.controls['myLicensePlate'].hasError(
+                        'pattern'
+                      )
+                    "
+                  >
+                    Valstybinis numeris turi būti formatu XXX000
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="pt-4">
+                <p>Jūsų el. paštas</p>
+                <mat-form-field>
+                  <input
+                    matInput
+                    formControlName="myEmail"
+                    placeholder="El. Paštas"
+                  />
+                </mat-form-field>
+              </div>
+            </div>
 
-  <mat-step [stepControl]="secondFormGroup">
-    <ng-template matStepLabel>Select Options</ng-template>
-    <mat-card>
-      <mat-card-content>
-        <form [formGroup]="secondFormGroup">
-          <mat-radio-group formControlName="options">
-            <mat-radio-button value="option1">Option 1</mat-radio-button>
-            <mat-radio-button value="option2">Option 2</mat-radio-button>
-            <mat-radio-button value="option3">Option 3</mat-radio-button>
-          </mat-radio-group>
+            <div class="flex flex-col pl-6">
+              <div>
+                <p>Kito vairuotojo valstybiniai numeriai</p>
+                <mat-form-field>
+                  <input
+                    matInput
+                    placeholder="XXX000"
+                    formControlName="otherLicensePlate"
+                  />
+                  <mat-error
+                    *ngIf="
+                      firstFormGroup.controls['otherLicensePlate'].hasError(
+                        'required'
+                      )
+                    "
+                  >
+                    Valstybinis numeris yra privalomas
+                  </mat-error>
+                  <mat-error
+                    *ngIf="
+                      firstFormGroup.controls['otherLicensePlate'].hasError(
+                        'pattern'
+                      )
+                    "
+                  >
+                    Valstybinis numeris turi būti formatu XXX000
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="pt-4">
+                <p>Kito vairuotojo El. Paštas</p>
+                <mat-form-field>
+                  <input
+                    matInput
+                    formControlName="otherEmail"
+                    placeholder="El. Paštas"
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
         </form>
       </mat-card-content>
       <mat-card-actions>
         <button mat-button matStepperPrevious>Atgal</button>
-        <button mat-button matStepperNext>Pirmyn</button>
+        <button mat-raised-button color="primary" matStepperNext>Pirmyn</button>
       </mat-card-actions>
     </mat-card>
   </mat-step>
@@ -79,43 +169,118 @@
           style="border: 1px solid black"
         ></canvas>
       </div>
-      <button (click)="saveAsPdf()">Save as PDF</button>
     </mat-card-content>
 
     <mat-card-actions>
       <button mat-button matStepperPrevious>Atgal</button>
-      <button mat-button matStepperNext>Pirmyn</button>
+      <button mat-raised-button color="primary" matStepperNext>Pirmyn</button>
     </mat-card-actions>
   </mat-step>
 
-  <mat-step [stepControl]="secondFormGroup">
-    <ng-template matStepLabel>Select Options</ng-template>
+  <mat-step [stepControl]="timeAndPlace">
+    <ng-template matStepLabel>Eismo įvykio laikas ir vieta</ng-template>
     <mat-card>
       <mat-card-content>
-        <form [formGroup]="secondFormGroup">
-          <mat-radio-group formControlName="options">
-            <mat-radio-button value="option1">Option 1</mat-radio-button>
-            <mat-radio-button value="option2">Option 2</mat-radio-button>
-            <mat-radio-button value="option3">Option 3</mat-radio-button>
-          </mat-radio-group>
+        <form [formGroup]="timeAndPlace">
+          <div>
+            <mat-form-field>
+              <input
+                matInput
+                type="time"
+                formControlName="time"
+                placeholder="Laikas"
+              />
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput formControlName="lat" placeholder="Platuma" />
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput formControlName="lng" placeholder="Ilguma" />
+            </mat-form-field>
+          </div>
         </form>
       </mat-card-content>
       <mat-card-actions>
         <button mat-button matStepperPrevious>Atgal</button>
-        <button mat-button matStepperNext>Pirmyn</button>
+        <button mat-raised-button color="primary" matStepperNext>Pirmyn</button>
       </mat-card-actions>
     </mat-card>
   </mat-step>
 
-  <mat-step>
+  <mat-step [stepControl]="pictureGroup">
     <ng-template matStepLabel>Nuotraukos</ng-template>
     <mat-card>
+      <!-- make for 2 cars -->
       <mat-card-content>
-        <p>Upload your picture here.</p>
+        <form [formGroup]="pictureGroup">
+          <input type="file" formControlName="picture" />
+        </form>
       </mat-card-content>
       <mat-card-actions>
         <button mat-button matStepperPrevious>Atgal</button>
-        <button mat-button matStepperNext>Pirmyn</button>
+        <button mat-raised-button color="primary" matStepperNext>Pirmyn</button>
+      </mat-card-actions>
+    </mat-card>
+  </mat-step>
+
+  <mat-step [stepControl]="hitGroup">
+    <ng-template matStepLabel>Sugadinimai</ng-template>
+    <mat-card>
+      <!-- make for 2 cars -->
+      <mat-card-content>
+        <form [formGroup]="hitGroup">
+          <mat-form-field>
+            <mat-label>Pasirinkti pirminį smūgį</mat-label>
+            <mat-select formControlName="myFirstHit">
+              <mat-option *ngFor="let hit of hits" [value]="hit">
+                {{ hit }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Pasirinkti pirminį smūgį</mat-label>
+            <mat-select formControlName="otherFirstHit">
+              <mat-option *ngFor="let hit of hits" [value]="hit">
+                {{ hit }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </form>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button matStepperPrevious>Atgal</button>
+        <button mat-raised-button color="primary" matStepperNext>Pirmyn</button>
+      </mat-card-actions>
+    </mat-card>
+  </mat-step>
+
+  <mat-step [stepControl]="hitGroup">
+    <ng-template matStepLabel>Aplinkybės</ng-template>
+    <mat-card>
+      <!-- make for 2 cars -->
+      <mat-card-content>
+        <form [formGroup]="hitGroup">
+          <mat-form-field>
+            <mat-label>Pasirinkti pirminį smūgį</mat-label>
+            <mat-select formControlName="myFirstHit">
+              <mat-option *ngFor="let hit of hits" [value]="hit">
+                {{ hit }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Pasirinkti pirminį smūgį</mat-label>
+            <mat-select formControlName="otherFirstHit">
+              <mat-option *ngFor="let hit of hits" [value]="hit">
+                {{ hit }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </form>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button matStepperPrevious>Atgal</button>
+        <button mat-raised-button color="primary" matStepperNext>Pirmyn</button>
       </mat-card-actions>
     </mat-card>
   </mat-step>

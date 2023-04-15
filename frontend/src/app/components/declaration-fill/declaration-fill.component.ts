@@ -7,7 +7,6 @@ import {
   ViewChild,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import jsPDF from 'jspdf';
 
 @Component({
   selector: 'app-declaration-fill',
@@ -22,16 +21,66 @@ export class DeclarationFillComponent implements AfterViewInit, OnInit {
   private currentY!: number;
 
   @ViewChild('canvasElement') canvasElement!: ElementRef<HTMLCanvasElement>;
+
   isLinear = true;
+
+  start!: FormGroup;
   acceptTerms!: FormGroup;
   firstFormGroup!: FormGroup;
-  secondFormGroup!: FormGroup;
+  timeAndPlace!: FormGroup;
+  pictureGroup!: FormGroup;
+  hitGroup!: FormGroup;
+  howGroup!: FormGroup;
 
-  constructor(
-    private elRef: ElementRef,
-    private renderer: Renderer2,
-    private _formBuilder: FormBuilder
-  ) {}
+  hits = [
+    'Priekinis buferis',
+    'Sparnas k. pusė',
+    'Sparnas d. pusė',
+    'Priekinės durys k. pusė',
+    'Priekinės durys d. pusė',
+    'Galinės durys k. pusė',
+    'Galinės durys d. pusė',
+    'Arka k. pusė',
+    'Arka d. pusė',
+    'Galinis buferis',
+    'Kita',
+  ];
+
+  how = [
+    { label: 'stovint / sustabdžius', value: 'stop' },
+    { label: 'pradedant važiuoti / atidarant dureles', value: 'stop' },
+    { label: 'stabdant', value: 'stop' },
+    { label: 'išvažiuojant iš stovėjimo vietos', value: 'stop' },
+    { label: 'įvažiuojant į stovėjimo vietą', value: 'stop' },
+    { label: 'įvažiuojant į žiedinę sankryžą', value: 'stop' },
+    { label: 'važiuojant žiedinėje sankryžoje', value: 'stop' },
+    {
+      label:
+        'atsitrenkiant į ta pačia kryptimi ir ta pačia kelio juosta važiuojančios transporto priemonės galinę dalį',
+      value: 'stop',
+    },
+    {
+      label: 'važiuojant ta pačia kryptimi, tačiau kita kelio juosta',
+      value: 'stop',
+    },
+    { label: 'persirikuojant', value: 'stop' },
+    { label: 'lenkiant', value: 'stop' },
+    { label: 'sukant į dešinę', value: 'stop' },
+    { label: 'sukant į kairę', value: 'stop' },
+    { label: 'važiuojant atbuline eiga', value: 'stop' },
+    { label: 'įvažiuojant į priešpriešinio eismo juostą', value: 'stop' },
+    { label: 'sankryžoje atsitrenkiant iš dešinės', value: 'stop' },
+    {
+      label:
+        'nesuteikiant pirmenybės teisės ar nepaisant raudono šviesaforo signalo',
+      value: 'stop',
+    },
+  ];
+
+  lat!: number;
+  lng!: number;
+
+  constructor(private renderer: Renderer2, private _formBuilder: FormBuilder) {}
 
   ngAfterViewInit() {
     const canvas = this.canvasElement.nativeElement;
@@ -64,44 +113,54 @@ export class DeclarationFillComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.lat = position.coords.latitude;
+        this.lng = position.coords.longitude;
+
+        this.timeAndPlace = this._formBuilder.group({
+          time: ['', Validators.required],
+          lat: { value: this.lat, disabled: true },
+          lng: { value: this.lng, disabled: true },
+        });
+      });
+    } else {
+      console.log('Geolocation is not supported by this browser.');
+    }
+
+    this.initFormGroups();
+  }
+
+  initFormGroups() {
     this.acceptTerms = this._formBuilder.group({
       options: ['', Validators.required],
     });
 
     this.firstFormGroup = this._formBuilder.group({
-      name: ['', Validators.required],
+      myLicensePlate: [
+        'AAA111',
+        [Validators.required, Validators.pattern('[A-Z]{3}[0-9]{3}')],
+      ],
+      otherLicensePlate: [
+        'AAA111',
+        [Validators.required, Validators.pattern('[A-Z]{3}[0-9]{3}')],
+      ],
+      myEmail: ['asd@gmail.com', [Validators.required, Validators.email]],
+      otherEmail: ['asd@gmail.com', [Validators.required, Validators.email]],
     });
-    this.secondFormGroup = this._formBuilder.group({
-      options: ['', Validators.required],
+
+    this.pictureGroup = this._formBuilder.group({
+      picture: ['', Validators.required],
     });
-  }
 
-  saveAsPdf() {
-    const drawAreaEl = this.elRef.nativeElement.querySelector('#draw-area');
-    const canvasEl = this.elRef.nativeElement.querySelector('canvas');
-    const ctx = canvasEl.getContext('2d');
+    this.hitGroup = this._formBuilder.group({
+      myFirstHit: ['', Validators.required],
+      otherFirstHit: ['', Validators.required],
+    });
 
-    // Create a new PDF document
-    const doc = new jsPDF();
-
-    console.log(doc);
-
-    // Add an image of the canvas to the PDF document
-    setTimeout(() => {
-      const imageData = canvasEl.toDataURL('image/png');
-      doc.addImage(
-        imageData,
-        'PNG',
-        0,
-        0,
-        drawAreaEl.clientWidth,
-        drawAreaEl.clientHeight
-      );
-
-      // Save the PDF document with a delay of 500ms
-      setTimeout(() => {
-        doc.save('drawing.pdf');
-      }, 500);
-    }, 100);
+    this.howGroup = this._formBuilder.group({
+      myHow: this._formBuilder.array([]),
+      otherHow: this._formBuilder.array([]),
+    });
   }
 }
