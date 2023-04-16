@@ -39,6 +39,7 @@ export class DeclarationFillComponent implements AfterViewInit, OnInit {
   pictureGroup!: FormGroup;
   hitGroup!: FormGroup;
   howGroup!: FormGroup;
+  driverData!: FormGroup;
 
   hits = [
     'Priekinis buferis',
@@ -144,6 +145,8 @@ export class DeclarationFillComponent implements AfterViewInit, OnInit {
 
     this.renderer.listen(canvas, 'mouseup', (event) => {
       this.isDrawing = false;
+
+      const imageData = canvas.toDataURL('image/png');
     });
   }
 
@@ -185,7 +188,12 @@ export class DeclarationFillComponent implements AfterViewInit, OnInit {
     });
 
     this.pictureGroup = this._formBuilder.group({
-      picture: ['', Validators.required],
+      picture1: ['', Validators.required],
+      picture2: ['', Validators.required],
+      picture3: ['', Validators.required],
+      picture4: ['', Validators.required],
+      picture5: ['', Validators.required],
+      picture6: ['', Validators.required],
     });
 
     this.hitGroup = this._formBuilder.group({
@@ -196,6 +204,27 @@ export class DeclarationFillComponent implements AfterViewInit, OnInit {
     this.howGroup = this._formBuilder.group({
       myHow: this._formBuilder.array([]),
       otherHow: this._formBuilder.array([]),
+    });
+
+    this.driverData = this._formBuilder.group({
+      firstDriver: this._formBuilder.group({
+        name: ['', Validators.required],
+        surname: ['', Validators.required],
+        birthDate: ['', Validators.required],
+        country: ['', Validators.required],
+        street: ['', Validators.required],
+        phoneNumber: ['+370', Validators.pattern(/^\+3706\d{7}$/)],
+        idNumber: ['', Validators.pattern(/^\d{6}$/)],
+      }),
+      secondDriver: this._formBuilder.group({
+        name: ['', Validators.required],
+        surname: ['', Validators.required],
+        birthDate: ['', Validators.required],
+        country: ['', Validators.required],
+        street: ['', Validators.required],
+        phoneNumber: ['+370', Validators.pattern(/^\+3706\d{7}$/)],
+        idNumber: ['', Validators.pattern(/^\d{6}$/)],
+      }),
     });
   }
 
@@ -210,7 +239,6 @@ export class DeclarationFillComponent implements AfterViewInit, OnInit {
         this.myHowControl.removeAt(index);
       }
     }
-    console.log(this.myHowControl.value);
   }
 
   onOtherHowChange(event: MatCheckboxChange, value: string) {

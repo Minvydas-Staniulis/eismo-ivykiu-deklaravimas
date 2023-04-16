@@ -22,6 +22,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomepageComponent } from './components/homepage/homepage.component';
@@ -72,6 +74,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatFormFieldModule,
     MatRadioModule,
     MatCheckboxModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
 
     FormsModule,
     ReactiveFormsModule,

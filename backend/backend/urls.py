@@ -5,6 +5,7 @@ from rest_framework.routers import DefaultRouter
 from cars.views import car_list, car_detail, car_create, car_update, car_delete
 from carsMake.views import car_make_list
 from carsModel.views import car_model_list
+from declaration.views import declaration_create
 
 router = DefaultRouter()
 
@@ -20,5 +21,8 @@ urlpatterns = [
 
     # cars make/model API
     path('api/car-makes/', car_make_list, name='car_make_list'),
-    path('api/car-models/', car_model_list, name='car_model_list')
+    path('api/car-models/', car_model_list, name='car_model_list'),
+
+    # declaration
+    path('api/declaration-submit', declaration_create, name='declaration_create')
 ]
