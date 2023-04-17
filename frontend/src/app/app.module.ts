@@ -37,6 +37,7 @@ import { MyVehiclesDialogComponent } from './components/my-vehicles/my-vehicles-
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { NewsComponent } from './components/news/news.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     FormsModule,
     ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

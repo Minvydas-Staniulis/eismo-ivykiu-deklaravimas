@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import {
   AfterViewInit,
   Component,
@@ -40,6 +41,8 @@ export class DeclarationFillComponent implements AfterViewInit, OnInit {
   hitGroup!: FormGroup;
   howGroup!: FormGroup;
   driverData!: FormGroup;
+
+  declarationImage!: string;
 
   hits = [
     'Priekinis buferis',
@@ -116,7 +119,11 @@ export class DeclarationFillComponent implements AfterViewInit, OnInit {
     return this.howGroup.get('otherHow') as FormArray;
   }
 
-  constructor(private renderer: Renderer2, private _formBuilder: FormBuilder) {}
+  constructor(
+    private renderer: Renderer2,
+    private _formBuilder: FormBuilder,
+    private datePipe: DatePipe
+  ) {}
 
   ngAfterViewInit() {
     const canvas = this.canvasElement.nativeElement;
@@ -146,7 +153,7 @@ export class DeclarationFillComponent implements AfterViewInit, OnInit {
     this.renderer.listen(canvas, 'mouseup', (event) => {
       this.isDrawing = false;
 
-      const imageData = canvas.toDataURL('image/png');
+      this.declarationImage = canvas.toDataURL('image/png');
     });
   }
 
@@ -253,4 +260,75 @@ export class DeclarationFillComponent implements AfterViewInit, OnInit {
       }
     }
   }
+
+  sendData() {
+    const data = {
+      myLicensePlate: this.firstFormGroup.get('myLicensePlate')?.value,
+      otherLicensePlate: this.firstFormGroup.get('otherLicensePlate')?.value,
+
+      myEmail: this.firstFormGroup.get('myEmail')?.value,
+      otherEmail: this.firstFormGroup.get('otherEmail')?.value,
+
+      declaration: this.declarationImage,
+
+      picture1: this.pictureGroup.get('picture1')?.value,
+      picture2: this.pictureGroup.get('picture2')?.value,
+      picture3: this.pictureGroup.get('picture3')?.value,
+      picture4: this.pictureGroup.get('picture4')?.value,
+      picture5: this.pictureGroup.get('picture5')?.value,
+      picture6: this.pictureGroup.get('picture6')?.value,
+
+      myFirstHit: this.hitGroup.get('myFirstHit')?.value,
+      otherFirstHit: this.hitGroup.get('otherFirstHit')?.value,
+
+      myHow: this.howGroup.get('myHow')?.value,
+      otherHow: this.howGroup.get('otherHow')?.value,
+
+      firstDriverName: this.driverData.get('firstDriver.name')?.value,
+      firstDriverSurname: this.driverData.get('firstDriver.surname')?.value,
+      firstDriverBirthDate: this.driverData.get('firstDriver.birthDate')?.value,
+      firstDriverCountry: this.driverData.get('firstDriver.country')?.value,
+      firstDriverStreet: this.driverData.get('firstDriver.street')?.value,
+      firstDriverPhoneNumber: this.driverData.get('firstDriver.phoneNumber')
+        ?.value,
+      firstDriverIdNumber: this.driverData.get('firstDriver.idNumber')?.value,
+
+      secondDriverName: this.driverData.get('secondDriver.name')?.value,
+      secondDriverSurname: this.driverData.get('secondDriver.surname')?.value,
+      secondDriverBirthDate: this.driverData.get('secondDriver.birthDate')
+        ?.value,
+      secondDriverCountry: this.driverData.get('secondDriver.country')?.value,
+      secondDriverStreet: this.driverData.get('secondDriver.street')?.value,
+      secondDriverPhoneNumber: this.driverData.get('secondDriver.phoneNumber')
+        ?.value,
+      secondDriverIdNumber: this.driverData.get('secondDriver.idNumber')?.value,
+
+      time: this.timeAndPlace.get('time')?.value,
+      lat: this.timeAndPlace.get('lat')?.value,
+      lng: this.timeAndPlace.get('lng')?.value,
+    };
+
+    console.log(data);
+  }
+
+  //   const formData = new FormData();
+
+  // // Add the picture files to the form data
+  // formData.append('picture1', this.pictureGroup.get('picture1').value);
+  // formData.append('picture2', this.pictureGroup.get('picture2').value);
+  // formData.append('picture3', this.pictureGroup.get('picture3').value);
+  // formData.append('picture4', this.pictureGroup.get('picture4').value);
+  // formData.append('picture5', this.pictureGroup.get('picture5').value);
+  // formData.append('picture6', this.pictureGroup.get('picture6').value);
+
+  // // Add the other form data fields to the form data
+  // formData.append('myLicensePlate', this.firstFormGroup.get('myLicensePlate').value);
+  // formData.append('otherLicensePlate', this.firstFormGroup.get('otherLicensePlate').value);
+  // formData.append('myEmail', this.firstFormGroup.get('myEmail').value);
+  // formData.append('otherEmail', this.firstFormGroup.get('otherEmail').value);
+
+  // // Make a POST request to the Django backend
+  // this.http.post('http://your-django-backend-url/declaration_create/', formData).subscribe(response => {
+  //   console.log(response);
+  // });
 }
