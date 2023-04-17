@@ -286,7 +286,10 @@ export class DeclarationFillComponent implements AfterViewInit, OnInit {
 
       firstDriverName: this.driverData.get('firstDriver.name')?.value,
       firstDriverSurname: this.driverData.get('firstDriver.surname')?.value,
-      firstDriverBirthDate: this.driverData.get('firstDriver.birthDate')?.value,
+      firstDriverBirthDate: this.datePipe.transform(
+        this.driverData.get('firstDriver.birthDate')?.value,
+        'yyyy-MM-dd'
+      ),
       firstDriverCountry: this.driverData.get('firstDriver.country')?.value,
       firstDriverStreet: this.driverData.get('firstDriver.street')?.value,
       firstDriverPhoneNumber: this.driverData.get('firstDriver.phoneNumber')
@@ -295,8 +298,10 @@ export class DeclarationFillComponent implements AfterViewInit, OnInit {
 
       secondDriverName: this.driverData.get('secondDriver.name')?.value,
       secondDriverSurname: this.driverData.get('secondDriver.surname')?.value,
-      secondDriverBirthDate: this.driverData.get('secondDriver.birthDate')
-        ?.value,
+      secondDriverBirthDate: this.datePipe.transform(
+        this.driverData.get('secondDriver.birthDate')?.value,
+        'yyyy-MM-dd'
+      ),
       secondDriverCountry: this.driverData.get('secondDriver.country')?.value,
       secondDriverStreet: this.driverData.get('secondDriver.street')?.value,
       secondDriverPhoneNumber: this.driverData.get('secondDriver.phoneNumber')
