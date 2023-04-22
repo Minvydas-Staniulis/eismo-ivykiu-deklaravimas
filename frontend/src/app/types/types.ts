@@ -5,14 +5,14 @@ export interface DeclarationData {
   myEmail: string;
   otherEmail: string;
 
-  declaration: File;
+  declaration: string;
 
-  picture1: File;
-  picture2: File;
-  picture3: File;
-  picture4: File;
-  picture5: File;
-  picture6: File;
+  picture1: string | null;
+  picture2: string | null;
+  picture3: string | null;
+  picture4: string | null;
+  picture5: string | null;
+  picture6: string | null;
 
   myFirstHit: string;
   otherFirstHit: string;
@@ -22,7 +22,7 @@ export interface DeclarationData {
 
   firstDriverName: string;
   firstDriverSurname: string;
-  firstDriverBirthDate: string;
+  firstDriverBirthDate: string | null;
   firstDriverCountry: string;
   firstDriverStreet: string;
   firstDriverPhoneNumber: string;
@@ -30,13 +30,13 @@ export interface DeclarationData {
 
   secondDriverName: string;
   secondDriverSurname: string;
-  secondDriverBirthDate: string;
+  secondDriverBirthDate: string | null;
   secondDriverCountry: string;
   secondDriverStreet: string;
   secondDriverPhoneNumber: string;
   secondDriverIdNumber: number;
 
-  time: string;
+  time: string | null;
   lat: string;
   lng: string;
 }

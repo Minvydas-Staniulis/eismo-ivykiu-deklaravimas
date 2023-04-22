@@ -37,7 +37,6 @@ const routes: Routes = [
   {
     path: 'declaration-fill',
     component: DeclarationFillComponent,
-    canActivate: [AuthGuard],
   },
 ];
 

@@ -16,6 +16,7 @@ import {
 } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatSelectChange } from '@angular/material/select';
+import { DeclarationData } from 'src/app/types/types';
 
 @Component({
   selector: 'app-declaration-fill',
@@ -28,6 +29,15 @@ export class DeclarationFillComponent implements AfterViewInit, OnInit {
   private startY!: number;
   private currentX!: number;
   private currentY!: number;
+
+  picture1Base64!: string;
+  picture2Base64!: string;
+  picture3Base64!: string;
+  picture4Base64!: string;
+  picture5Base64!: string;
+  picture6Base64!: string;
+
+  pictureArray: any[] = [];
 
   @ViewChild('canvasElement') canvasElement!: ElementRef<HTMLCanvasElement>;
 
@@ -110,6 +120,7 @@ export class DeclarationFillComponent implements AfterViewInit, OnInit {
 
   lat!: number;
   lng!: number;
+  userInfo: any;
 
   get myHowControl() {
     return this.howGroup.get('myHow') as FormArray;
@@ -174,6 +185,21 @@ export class DeclarationFillComponent implements AfterViewInit, OnInit {
     }
 
     this.initFormGroups();
+
+    const userInfoString = localStorage.getItem('user');
+    if (userInfoString) {
+      this.userInfo = JSON.parse(userInfoString);
+
+      this.firstFormGroup.controls['myEmail'].setValue(this.userInfo.email);
+      this.driverData
+        .get('firstDriver.name')
+        ?.patchValue(this.userInfo.first_name);
+      this.driverData
+        .get('firstDriver.surname')
+        ?.patchValue(this.userInfo.last_name);
+    }
+
+    console.log(this.userInfo);
   }
 
   initFormGroups() {
@@ -183,15 +209,21 @@ export class DeclarationFillComponent implements AfterViewInit, OnInit {
 
     this.firstFormGroup = this._formBuilder.group({
       myLicensePlate: [
-        'AAA111',
-        [Validators.required, Validators.pattern('[A-Z]{3}[0-9]{3}')],
+        '',
+        [
+          Validators.required,
+          Validators.pattern(/^(?=.*[0-9]|EV[0-9]{4})[A-Z0-9]{1,6}$/),
+        ],
       ],
       otherLicensePlate: [
-        'AAA111',
-        [Validators.required, Validators.pattern('[A-Z]{3}[0-9]{3}')],
+        '',
+        [
+          Validators.required,
+          Validators.pattern(/^(?=.*[0-9]|EV[0-9]{4})[A-Z0-9]{1,6}$/),
+        ],
       ],
-      myEmail: ['asd@gmail.com', [Validators.required, Validators.email]],
-      otherEmail: ['asd@gmail.com', [Validators.required, Validators.email]],
+      myEmail: ['', [Validators.required, Validators.email]],
+      otherEmail: ['', [Validators.required, Validators.email]],
     });
 
     this.pictureGroup = this._formBuilder.group({
@@ -262,7 +294,7 @@ export class DeclarationFillComponent implements AfterViewInit, OnInit {
   }
 
   sendData() {
-    const data = {
+    const data: DeclarationData = {
       myLicensePlate: this.firstFormGroup.get('myLicensePlate')?.value,
       otherLicensePlate: this.firstFormGroup.get('otherLicensePlate')?.value,
 
@@ -271,12 +303,12 @@ export class DeclarationFillComponent implements AfterViewInit, OnInit {
 
       declaration: this.declarationImage,
 
-      picture1: this.pictureGroup.get('picture1')?.value,
-      picture2: this.pictureGroup.get('picture2')?.value,
-      picture3: this.pictureGroup.get('picture3')?.value,
-      picture4: this.pictureGroup.get('picture4')?.value,
-      picture5: this.pictureGroup.get('picture5')?.value,
-      picture6: this.pictureGroup.get('picture6')?.value,
+      picture1: this.picture1Base64,
+      picture2: this.picture2Base64,
+      picture3: this.picture3Base64,
+      picture4: this.picture4Base64,
+      picture5: this.picture5Base64,
+      picture6: this.picture6Base64,
 
       myFirstHit: this.hitGroup.get('myFirstHit')?.value,
       otherFirstHit: this.hitGroup.get('otherFirstHit')?.value,
@@ -316,24 +348,75 @@ export class DeclarationFillComponent implements AfterViewInit, OnInit {
     console.log(data);
   }
 
-  //   const formData = new FormData();
+  onFileSelected1(event: any) {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      const file = files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.picture1Base64 = reader.result as string;
+      };
+    }
+  }
 
-  // // Add the picture files to the form data
-  // formData.append('picture1', this.pictureGroup.get('picture1').value);
-  // formData.append('picture2', this.pictureGroup.get('picture2').value);
-  // formData.append('picture3', this.pictureGroup.get('picture3').value);
-  // formData.append('picture4', this.pictureGroup.get('picture4').value);
-  // formData.append('picture5', this.pictureGroup.get('picture5').value);
-  // formData.append('picture6', this.pictureGroup.get('picture6').value);
+  onFileSelected2(event: any) {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      const file = files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.picture2Base64 = reader.result as string;
+      };
+    }
+  }
 
-  // // Add the other form data fields to the form data
-  // formData.append('myLicensePlate', this.firstFormGroup.get('myLicensePlate').value);
-  // formData.append('otherLicensePlate', this.firstFormGroup.get('otherLicensePlate').value);
-  // formData.append('myEmail', this.firstFormGroup.get('myEmail').value);
-  // formData.append('otherEmail', this.firstFormGroup.get('otherEmail').value);
+  onFileSelected3(event: any) {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      const file = files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.picture3Base64 = reader.result as string;
+      };
+    }
+  }
 
-  // // Make a POST request to the Django backend
-  // this.http.post('http://your-django-backend-url/declaration_create/', formData).subscribe(response => {
-  //   console.log(response);
-  // });
+  onFileSelected4(event: any) {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      const file = files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.picture4Base64 = reader.result as string;
+      };
+    }
+  }
+
+  onFileSelected5(event: any) {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      const file = files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.picture5Base64 = reader.result as string;
+      };
+    }
+  }
+
+  onFileSelected6(event: any) {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      const file = files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.picture6Base64 = reader.result as string;
+      };
+    }
+  }
 }

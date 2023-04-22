@@ -31,5 +31,9 @@ export class LoginComponent implements OnInit {
     this.router.navigate(['/register']);
   }
 
+  routeToFill() {
+    this.router.navigate(['/declaration-fill']);
+  }
+
   ngOnInit(): void {}
 }
