@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'carsMake',
     'carsModel',
     'declaration',
+    'news'
 ]
 
 MIDDLEWARE = [

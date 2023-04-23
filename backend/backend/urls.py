@@ -6,6 +6,7 @@ from cars.views import car_list, car_detail, car_create, car_update, car_delete
 from carsMake.views import car_make_list
 from carsModel.views import car_model_list
 from declaration.views import declaration_create
+from news.views import news_list
 
 router = DefaultRouter()
 
@@ -24,5 +25,8 @@ urlpatterns = [
     path('api/car-models/', car_model_list, name='car_model_list'),
 
     # declaration
-    path('api/declaration-submit', declaration_create, name='declaration_create')
+    path('api/declaration-submit', declaration_create, name='declaration_create'),
+
+    # news
+    path('api/news', news_list, name='news_list'),
 ]

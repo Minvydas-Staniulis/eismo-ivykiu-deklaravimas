@@ -45,7 +45,10 @@ export class MyVehiclesDialogComponent implements OnInit {
       ],
       licensePlate: [
         '',
-        [Validators.required, Validators.pattern('[A-Z]{3}[0-9]{3}')],
+        [
+          Validators.required,
+          Validators.pattern(/^(?=.*[0-9]|EV[0-9]{4})[A-Z0-9]{1,6}$/),
+        ],
       ],
     });
 

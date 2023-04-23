@@ -11,9 +11,10 @@ import {
   AuthGuard,
   LoginGuard,
 } from './services/auth-guard/auth-guard.service';
+import { NewsComponent } from './components/news/news.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '', redirectTo: '/home/news', pathMatch: 'full' },
   {
     path: 'login',
     component: LoginComponent,
@@ -31,6 +32,7 @@ const routes: Routes = [
       { path: 'my-declarations', component: MyDeclarationsComponent },
       { path: 'my-vehicles', component: MyVehiclesComponent },
       { path: 'damage-calculator', component: DamageCalculatorComponent },
+      { path: 'news', component: NewsComponent },
     ],
     canActivate: [AuthGuard],
   },
