@@ -54,7 +54,13 @@
 
     <mat-form-field appearance="fill">
       <mat-label>Valstybinis numeris</mat-label>
-      <input matInput formControlName="licensePlate" type="text" required />
+      <input
+        matInput
+        formControlName="licensePlate"
+        type="text"
+        required
+        (input)="onInput($event)"
+      />
       <mat-error *ngIf="carForm.controls['licensePlate'].hasError('required')">
         Valstybinis numeris yra privalomas
       </mat-error>

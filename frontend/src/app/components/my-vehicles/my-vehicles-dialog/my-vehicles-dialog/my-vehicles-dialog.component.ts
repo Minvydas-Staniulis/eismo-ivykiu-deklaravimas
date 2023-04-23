@@ -85,4 +85,8 @@ export class MyVehiclesDialogComponent implements OnInit {
       this.selectedLicensePlate
     );
   }
+
+  onInput(event: any) {
+    event.target.value = event.target.value.toUpperCase();
+  }
 }

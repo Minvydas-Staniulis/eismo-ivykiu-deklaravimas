@@ -1,6 +1,7 @@
 <mat-horizontal-stepper [linear]="isLinear" class="w-1/2 flex mx-auto h-full">
   <mat-step>
     <ng-template matStepLabel>Pradžia</ng-template>
+    <h1><strong>Pradžia</strong></h1>
     <mat-card>
       <mat-card-content>
         <div>
@@ -14,10 +15,22 @@
 
             <p>Būtinos saugumo priemonės:</p>
             <div class="pt-2">
-              <p>Įjunkite avarinius žibintus</p>
-              <p>Pastatykite avarinį ženklą pagal KET</p>
-              <p>Apsivilkite liemenę su atšvaitais</p>
-              <p>Jei yra sužalotų asmenų - skambinkite <strong>112</strong></p>
+              <p class="flex items-center">
+                <mat-icon class="mr-2">power</mat-icon>
+                Įjunkite avarinius žibintus
+              </p>
+              <p class="flex items-center">
+                <mat-icon class="mr-2">construction</mat-icon>
+                Pastatykite avarinį ženklą pagal KET
+              </p>
+              <p class="flex items-center">
+                <mat-icon class="mr-2">visibility</mat-icon>
+                Apsivilkite liemenę su atšvaitais
+              </p>
+              <p class="flex items-center">
+                <mat-icon class="mr-2">phone</mat-icon>
+                Jei yra sužalotų asmenų - skambinkite nr.<strong> 112 </strong>
+              </p>
             </div>
           </div>
         </div>
@@ -32,20 +45,38 @@
 
   <mat-step [stepControl]="acceptTerms">
     <ng-template matStepLabel>Sąlygos</ng-template>
+    <h1><strong>Sąlygos</strong></h1>
     <mat-card>
       <mat-card-content>
         <form [formGroup]="acceptTerms">
           <div class="flex flex-col">
-            <p>Nėra sužalotų asmenų</p>
-            <p>Susidūrė tik 2 transporto priemonės</p>
-            <p>Nėra padaryta žala kitam trečiųjų asmenų turtui</p>
-            <p>Abi transporto priemonės yra registruotos Lietuvoje</p>
-            <p>Eismo įvykis įvyko Lietuvoje</p>
-            <p>
+            <p class="flex items-center">
+              <mat-icon class="mr-2">thumb_up_alt</mat-icon>
+              Nėra sužalotų asmenų
+            </p>
+            <p class="flex items-center">
+              <mat-icon class="mr-2">directions_car</mat-icon>
+              Susidūrė tik 2 transporto priemonės
+            </p>
+            <p class="flex items-center">
+              <mat-icon class="mr-2">home</mat-icon>
+              Nėra padaryta žala kitam trečiųjų asmenų turtui
+            </p>
+            <p class="flex items-center">
+              <mat-icon class="mr-2">flag</mat-icon>
+              Abi transporto priemonės yra registruotos Lietuvoje
+            </p>
+            <p class="flex items-center">
+              <mat-icon class="mr-2">location_city</mat-icon>
+              Eismo įvykis įvyko Lietuvoje
+            </p>
+            <p class="flex items-center">
+              <mat-icon class="mr-2">assignment_turned_in</mat-icon>
               Eismo įvykio dalyviai sutaria dėl to, kuris vairuotojas yra
               kaltininkas
             </p>
           </div>
+
           <mat-radio-group formControlName="options">
             <mat-radio-button value="option1" class="pt-4"
               >Patvirtinu, jog visos sąlygos galioja</mat-radio-button
@@ -64,6 +95,7 @@
 
   <mat-step [stepControl]="firstFormGroup">
     <ng-template matStepLabel>Vairuotojų duomenys</ng-template>
+    <h1><strong>Vairuotojų duomenys</strong></h1>
     <mat-card>
       <mat-card-content>
         <form [formGroup]="firstFormGroup">
@@ -76,6 +108,7 @@
                     matInput
                     placeholder="XXX000"
                     formControlName="myLicensePlate"
+                    (input)="onInput($event)"
                   />
                   <mat-error
                     *ngIf="
@@ -93,7 +126,7 @@
                       )
                     "
                   >
-                    Valstybinis numeris turi būti formatu XXX000
+                    Valstybinis numeris yra netinkamo formato
                   </mat-error>
                 </mat-form-field>
               </div>
@@ -117,6 +150,7 @@
                     matInput
                     placeholder="XXX000"
                     formControlName="otherLicensePlate"
+                    (input)="onInput($event)"
                   />
                   <mat-error
                     *ngIf="
@@ -134,7 +168,7 @@
                       )
                     "
                   >
-                    Valstybinis numeris turi būti formatu XXX000
+                    Valstybinis numeris yra netinkamo formato
                   </mat-error>
                 </mat-form-field>
               </div>
@@ -159,7 +193,8 @@
     </mat-card>
   </mat-step>
 
-  <mat-step label="Draw">
+  <mat-step label="Piešimas">
+    <h1><strong>Eismo įvykio deklaracijos piešimas</strong></h1>
     <mat-card-content>
       <div id="draw-area">
         <canvas
@@ -169,6 +204,7 @@
           style="border: 1px solid black"
         ></canvas>
       </div>
+      <button mat-raised-button (click)="clearCanvas()">Išvalyti</button>
     </mat-card-content>
 
     <mat-card-actions>
@@ -179,6 +215,7 @@
 
   <mat-step [stepControl]="timeAndPlace">
     <ng-template matStepLabel>Eismo įvykio laikas ir vieta</ng-template>
+    <h1><strong>Eismo įvykio laikas ir vieta</strong></h1>
     <mat-card>
       <mat-card-content>
         <form [formGroup]="timeAndPlace">
@@ -209,6 +246,7 @@
 
   <mat-step [stepControl]="pictureGroup">
     <ng-template matStepLabel>Nuotraukos</ng-template>
+    <h1><strong>Nuotraukos</strong></h1>
     <mat-card>
       <mat-card-content>
         <form [formGroup]="pictureGroup">
@@ -218,32 +256,38 @@
             formControlName="picture1"
             (change)="onFileSelected1($event)"
           />
-          <h1>Valstybiniai numeriai</h1>
+          <h1>
+            <strong>{{ myLicensePlateControl?.value }}</strong> Valstybiniai
+            numeriai
+          </h1>
           <input
             type="file"
             formControlName="picture2"
             (change)="onFileSelected2($event)"
           />
-          <h1>Transporto priemonės sugadinimai</h1>
+          <h1>
+            <strong>{{ myLicensePlateControl?.value }}</strong> Transporto
+            priemonės sugadinimai
+          </h1>
           <input
             type="file"
             formControlName="picture3"
             (change)="onFileSelected3($event)"
           />
 
-          <h1>Įvykio vieta</h1>
-          <input
-            type="file"
-            formControlName="picture4"
-            (change)="onFileSelected4($event)"
-          />
-          <h1>Valstybiniai numeriai</h1>
+          <h1>
+            <strong>{{ otherLicensePlateControl?.value }}</strong> Valstybiniai
+            numeriai
+          </h1>
           <input
             type="file"
             formControlName="picture5"
             (change)="onFileSelected5($event)"
           />
-          <h1>Transporto priemonės sugadinimai</h1>
+          <h1>
+            <strong>{{ otherLicensePlateControl?.value }}</strong> Transporto
+            priemonės sugadinimai
+          </h1>
           <input
             type="file"
             formControlName="picture6"
@@ -262,6 +306,7 @@
 
   <mat-step [stepControl]="hitGroup">
     <ng-template matStepLabel>Sugadinimai</ng-template>
+    <h1><strong>Sugadinimai</strong></h1>
     <mat-card>
       <!-- make for 2 cars -->
       <mat-card-content>
@@ -293,6 +338,7 @@
 
   <mat-step [stepControl]="hitGroup">
     <ng-template matStepLabel>Aplinkybės</ng-template>
+    <h1><strong>Aplinkybės</strong></h1>
     <mat-card>
       <mat-card-content class="flex flex-col justify-center items-center">
         <form [formGroup]="howGroup" class="w-full max-w-md">
@@ -323,6 +369,7 @@
 
   <mat-step [stepControl]="driverData">
     <ng-template matStepLabel>Duomenys</ng-template>
+    <h1><strong>Duomenys</strong></h1>
     <mat-card>
       <mat-card-content>
         <form [formGroup]="driverData">

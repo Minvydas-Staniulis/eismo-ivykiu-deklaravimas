@@ -130,6 +130,14 @@ export class DeclarationFillComponent implements AfterViewInit, OnInit {
     return this.howGroup.get('otherHow') as FormArray;
   }
 
+  get myLicensePlateControl() {
+    return this.firstFormGroup.get('myLicensePlate');
+  }
+
+  get otherLicensePlateControl() {
+    return this.firstFormGroup.get('otherLicensePlate');
+  }
+
   constructor(
     private renderer: Renderer2,
     private _formBuilder: FormBuilder,
@@ -166,6 +174,13 @@ export class DeclarationFillComponent implements AfterViewInit, OnInit {
 
       this.declarationImage = canvas.toDataURL('image/png');
     });
+  }
+
+  clearCanvas() {
+    const canvas = this.canvasElement.nativeElement;
+    const ctx = canvas.getContext('2d');
+
+    ctx?.clearRect(0, 0, canvas.width, canvas.height);
   }
 
   ngOnInit() {
@@ -418,5 +433,9 @@ export class DeclarationFillComponent implements AfterViewInit, OnInit {
         this.picture6Base64 = reader.result as string;
       };
     }
+  }
+
+  onInput(event: any) {
+    event.target.value = event.target.value.toUpperCase();
   }
 }

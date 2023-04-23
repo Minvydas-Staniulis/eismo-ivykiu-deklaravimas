@@ -27,27 +27,29 @@
 <mat-drawer-container class="h-full">
   <mat-drawer mode="side" opened>
     <mat-nav-list class="flex flex-col justify-between">
-      <a mat-list-item routerLink="./news" routerLinkActive="active"
-        >Pagrindinis</a
-      >
-      <a mat-list-item routerLink="./my-declarations" routerLinkActive="active"
-        >Mano Deklaracijos</a
-      >
-      <a mat-list-item routerLink="./my-vehicles" routerLinkActive="active"
-        >Mano Transporto Priemonės</a
-      >
+      <a mat-list-item routerLink="./news" routerLinkActive="active">
+        <mat-icon>home</mat-icon> Pagrindinis
+      </a>
+      <a mat-list-item routerLink="./my-declarations" routerLinkActive="active">
+        <mat-icon>assignment</mat-icon> Mano Deklaracijos
+      </a>
+      <a mat-list-item routerLink="./my-vehicles" routerLinkActive="active">
+        <mat-icon>directions_car</mat-icon> Mano Transporto Priemonės
+      </a>
       <a
         mat-list-item
         routerLink="./damage-calculator"
         routerLinkActive="active"
-        >Žalos Skaičiuoklė</a
       >
+        <mat-icon>calculate</mat-icon> Žalos Skaičiuoklė
+      </a>
       <a
         mat-list-item
         routerLink="../declaration-fill"
         routerLinkActive="active"
-        >Deklaracijos pildymas</a
       >
+        <mat-icon>create</mat-icon> Deklaracijos pildymas
+      </a>
     </mat-nav-list>
   </mat-drawer>
   <mat-drawer-content>
