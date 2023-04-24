@@ -10,7 +10,6 @@ export interface DeclarationData {
   picture1: string | null;
   picture2: string | null;
   picture3: string | null;
-  picture4: string | null;
   picture5: string | null;
   picture6: string | null;
 

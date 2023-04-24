@@ -1,4 +1,5 @@
 import { DatePipe } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import {
   AfterViewInit,
   Component,
@@ -15,8 +16,19 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-import { MatSelectChange } from '@angular/material/select';
 import { DeclarationData } from 'src/app/types/types';
+
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
+
+type TDocumentDefinitions = {
+  content: any[]; // replace `any` with your actual content type
+  pageSize?: any; // replace `any` with your actual page size type
+  pageOrientation?: 'portrait' | 'landscape';
+  pageMargins?: number | number[];
+  defaultStyle?: any; // replace `any` with your actual default style type
+};
 
 @Component({
   selector: 'app-declaration-fill',
@@ -33,7 +45,6 @@ export class DeclarationFillComponent implements AfterViewInit, OnInit {
   picture1Base64!: string;
   picture2Base64!: string;
   picture3Base64!: string;
-  picture4Base64!: string;
   picture5Base64!: string;
   picture6Base64!: string;
 
@@ -53,6 +64,11 @@ export class DeclarationFillComponent implements AfterViewInit, OnInit {
   driverData!: FormGroup;
 
   declarationImage!: string;
+
+  width = 160;
+  height = 80;
+
+  data!: DeclarationData;
 
   hits = [
     'Priekinis buferis',
@@ -141,7 +157,8 @@ export class DeclarationFillComponent implements AfterViewInit, OnInit {
   constructor(
     private renderer: Renderer2,
     private _formBuilder: FormBuilder,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private http: HttpClient
   ) {}
 
   ngAfterViewInit() {
@@ -245,7 +262,6 @@ export class DeclarationFillComponent implements AfterViewInit, OnInit {
       picture1: ['', Validators.required],
       picture2: ['', Validators.required],
       picture3: ['', Validators.required],
-      picture4: ['', Validators.required],
       picture5: ['', Validators.required],
       picture6: ['', Validators.required],
     });
@@ -265,19 +281,19 @@ export class DeclarationFillComponent implements AfterViewInit, OnInit {
         name: ['', Validators.required],
         surname: ['', Validators.required],
         birthDate: ['', Validators.required],
-        country: ['', Validators.required],
-        street: ['', Validators.required],
+        country: ['aaa', Validators.required],
+        street: ['aaa', Validators.required],
         phoneNumber: ['+370', Validators.pattern(/^\+3706\d{7}$/)],
-        idNumber: ['', Validators.pattern(/^\d{6}$/)],
+        idNumber: ['123456', Validators.pattern(/^\d{6}$/)],
       }),
       secondDriver: this._formBuilder.group({
-        name: ['', Validators.required],
-        surname: ['', Validators.required],
+        name: ['vardas', Validators.required],
+        surname: ['pavard', Validators.required],
         birthDate: ['', Validators.required],
-        country: ['', Validators.required],
-        street: ['', Validators.required],
+        country: ['aaa', Validators.required],
+        street: ['aaa', Validators.required],
         phoneNumber: ['+370', Validators.pattern(/^\+3706\d{7}$/)],
-        idNumber: ['', Validators.pattern(/^\d{6}$/)],
+        idNumber: ['123456', Validators.pattern(/^\d{6}$/)],
       }),
     });
   }
@@ -309,7 +325,7 @@ export class DeclarationFillComponent implements AfterViewInit, OnInit {
   }
 
   sendData() {
-    const data: DeclarationData = {
+    this.data = {
       myLicensePlate: this.firstFormGroup.get('myLicensePlate')?.value,
       otherLicensePlate: this.firstFormGroup.get('otherLicensePlate')?.value,
 
@@ -321,7 +337,6 @@ export class DeclarationFillComponent implements AfterViewInit, OnInit {
       picture1: this.picture1Base64,
       picture2: this.picture2Base64,
       picture3: this.picture3Base64,
-      picture4: this.picture4Base64,
       picture5: this.picture5Base64,
       picture6: this.picture6Base64,
 
@@ -360,7 +375,7 @@ export class DeclarationFillComponent implements AfterViewInit, OnInit {
       lng: this.timeAndPlace.get('lng')?.value,
     };
 
-    console.log(data);
+    this.createPd();
   }
 
   onFileSelected1(event: any) {
@@ -399,18 +414,6 @@ export class DeclarationFillComponent implements AfterViewInit, OnInit {
     }
   }
 
-  onFileSelected4(event: any) {
-    const files = event.target.files;
-    if (files && files.length > 0) {
-      const file = files[0];
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        this.picture4Base64 = reader.result as string;
-      };
-    }
-  }
-
   onFileSelected5(event: any) {
     const files = event.target.files;
     if (files && files.length > 0) {
@@ -437,5 +440,234 @@ export class DeclarationFillComponent implements AfterViewInit, OnInit {
 
   onInput(event: any) {
     event.target.value = event.target.value.toUpperCase();
+  }
+
+  createPd() {
+    // playground requires you to assign document definition to a variable called dd
+
+    const dd = {
+      content: [
+        {
+          columns: [
+            [
+              {
+                text: 'Eismo įvykio deklaracija',
+                color: '#333333',
+                width: '*',
+                fontSize: 24,
+                bold: true,
+                alignment: 'center',
+                margin: [0, 0, 0, 15],
+              },
+              {
+                stack: [
+                  {
+                    columns: [
+                      {
+                        text: 'Laikas \n Plokštuma \n Ilguma \n Kaltininkas',
+                        color: '#aaaaab',
+                        bold: true,
+                        width: '*',
+                        fontSize: 12,
+                        alignment: 'right',
+                      },
+                      {
+                        text: `${this.data.time} \n ${this.data.lat} \n ${this.data.lng} \n MIM323`,
+                        bold: true,
+                        color: '#333333',
+                        fontSize: 12,
+                        alignment: 'right',
+                        width: 100,
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          ],
+        },
+        {
+          columns: [
+            {
+              text: 'Pirmasis vairuotojas',
+              color: '#aaaaab',
+              bold: true,
+              fontSize: 14,
+              alignment: 'left',
+              margin: [0, 20, 0, 5],
+            },
+            {
+              text: 'Antrasis vairuotojas',
+              color: '#aaaaab',
+              bold: true,
+              fontSize: 14,
+              alignment: 'left',
+              margin: [0, 20, 0, 5],
+            },
+          ],
+        },
+        {
+          columns: [
+            {
+              text: `${this.data.firstDriverName} \n ${this.data.firstDriverSurname} \n ${this.data.firstDriverBirthDate} \n  \n ${this.data.firstDriverIdNumber} \n ${this.data.myLicensePlate}`,
+              bold: true,
+              color: '#333333',
+              alignment: 'left',
+            },
+            {
+              text: 'Petras \n Petraitis \n 2000-03-21 \n  \n 123456 \n AAA111',
+              bold: true,
+              color: '#333333',
+              alignment: 'left',
+            },
+          ],
+        },
+        {
+          columns: [
+            {
+              text: 'Kontaktai',
+              color: '#aaaaab',
+              bold: true,
+              margin: [0, 7, 0, 3],
+            },
+            {
+              text: 'Kontaktai',
+              color: '#aaaaab',
+              bold: true,
+              margin: [0, 7, 0, 3],
+            },
+          ],
+        },
+        {
+          columns: [
+            {
+              text: '+37060079911 \n mimciks@gmail.com',
+              style: 'invoiceBillingAddress',
+            },
+            {
+              text: '+37060079911 \n mimciks@gmail.com',
+              style: 'invoiceBillingAddress',
+            },
+          ],
+        },
+        {
+          columns: [
+            {
+              text: 'Adresas',
+              color: '#aaaaab',
+              bold: true,
+              margin: [0, 7, 0, 3],
+            },
+            {
+              text: 'Adresas',
+              color: '#aaaaab',
+              bold: true,
+              margin: [0, 7, 0, 3],
+            },
+          ],
+        },
+        {
+          columns: [
+            {
+              text: '9999 Street name 1A \n Lietuva',
+              style: 'invoiceBillingAddress',
+            },
+            {
+              text: '1111 Other street 25 \n Lietuva',
+              style: 'invoiceBillingAddress',
+            },
+          ],
+        },
+        '\n\n',
+        {
+          text: 'Duomenys',
+          color: '#333333',
+          width: '*',
+          fontSize: 15,
+          bold: true,
+          alignment: 'center',
+          margin: [0, 0, 0, 15],
+        },
+        {
+          columns: [
+            {
+              text: 'Pirmojo vairuotojo aplinkybės',
+              color: '#aaaaab',
+              bold: true,
+              fontSize: 14,
+              alignment: 'left',
+              margin: [0, 20, 0, 5],
+            },
+            {
+              text: 'Antrojo vairuotojo aplinkybės',
+              color: '#aaaaab',
+              bold: true,
+              fontSize: 14,
+              alignment: 'left',
+              margin: [0, 20, 0, 5],
+            },
+          ],
+        },
+        {
+          columns: [
+            {
+              text: 'Pirminis smūgis: smugis \n įvykio dėtalės: žiedas \n',
+              bold: true,
+              color: '#333333',
+              alignment: 'left',
+            },
+            {
+              text: 'Pirminis smūgis: smugis \n įvykio dėtalės: žiedas \n',
+              bold: true,
+              color: '#333333',
+              alignment: 'left',
+            },
+          ],
+        },
+        '\n\n\n\n',
+        {
+          image: this.declarationImage,
+          width: 350,
+          alignment: 'center',
+        },
+        // {
+        //   image: '',
+        //   width: 350,
+        //   alignment: 'center',
+        // },
+        // {
+        //   image: '',
+        //   width: 350,
+        //   alignment: 'center',
+        // },
+        // {
+        //   image: '',
+        //   width: 350,
+        //   alignment: 'center',
+        // },
+        // {
+        //   image: '',
+        //   width: 350,
+        //   alignment: 'center',
+        // },
+      ],
+      styles: {
+        notesTitle: {
+          fontSize: 10,
+          bold: true,
+          margin: [0, 50, 0, 3],
+        },
+        notesText: {
+          fontSize: 10,
+        },
+      },
+      defaultStyle: {
+        columnGap: 20,
+        //font: 'Quicksand',
+      },
+    };
+    const pdfMake = require('pdfmake/build/pdfmake.js');
+
+    pdfMake.createPdf(dd).download('test.pdf');
   }
 }

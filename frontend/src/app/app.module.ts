@@ -39,6 +39,10 @@ import { NewsComponent } from './components/news/news.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { DatePipe } from '@angular/common';
 
+import * as pdfMake from 'pdfmake/build/pdfmake';
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+(pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
+
 @NgModule({
   declarations: [
     AppComponent,
