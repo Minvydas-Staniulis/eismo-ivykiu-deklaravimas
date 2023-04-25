@@ -95,106 +95,115 @@
 
   <mat-step [stepControl]="firstFormGroup">
     <ng-template matStepLabel>Vairuotojų duomenys</ng-template>
-    <h1><strong>Vairuotojų duomenys</strong></h1>
+    <h1 class="text-2xl font-bold mb-4">Vairuotojų duomenys</h1>
     <mat-card>
       <mat-card-content>
-        <form [formGroup]="firstFormGroup">
-          <div class="flex flex-row">
-            <div class="flex flex-col">
-              <div>
-                <p>Jūsų valstybiniai numeriai</p>
-                <mat-form-field>
-                  <input
-                    matInput
-                    placeholder="XXX000"
-                    formControlName="myLicensePlate"
-                    (input)="onInput($event)"
-                  />
-                  <mat-error
-                    *ngIf="
-                      firstFormGroup.controls['myLicensePlate'].hasError(
-                        'required'
-                      )
-                    "
-                  >
-                    Valstybinis numeris yra privalomas
-                  </mat-error>
-                  <mat-error
-                    *ngIf="
-                      firstFormGroup.controls['myLicensePlate'].hasError(
-                        'pattern'
-                      )
-                    "
-                  >
-                    Valstybinis numeris yra netinkamo formato
-                  </mat-error>
-                </mat-form-field>
-              </div>
-              <div class="pt-4">
-                <p>Jūsų el. paštas</p>
-                <mat-form-field>
-                  <input
-                    matInput
-                    formControlName="myEmail"
-                    placeholder="El. Paštas"
-                  />
-                </mat-form-field>
-              </div>
+        <form [formGroup]="firstFormGroup" class="flex flex-col">
+          <div class="grid grid-cols-2 gap-8">
+            <div>
+              <p class="text-gray-600">Jūsų valstybiniai numeriai</p>
+              <mat-form-field>
+                <input
+                  matInput
+                  placeholder="XXX000"
+                  formControlName="myLicensePlate"
+                  (input)="onInput($event)"
+                  class="mt-2"
+                />
+                <mat-error
+                  *ngIf="
+                    firstFormGroup.controls['myLicensePlate'].hasError(
+                      'required'
+                    )
+                  "
+                  class="text-red-600"
+                >
+                  Valstybinis numeris yra privalomas
+                </mat-error>
+                <mat-error
+                  *ngIf="
+                    firstFormGroup.controls['myLicensePlate'].hasError(
+                      'pattern'
+                    )
+                  "
+                  class="text-red-600"
+                >
+                  Valstybinis numeris yra netinkamo formato
+                </mat-error>
+              </mat-form-field>
             </div>
-
-            <div class="flex flex-col pl-6">
-              <div>
-                <p>Kito vairuotojo valstybiniai numeriai</p>
-                <mat-form-field>
-                  <input
-                    matInput
-                    placeholder="XXX000"
-                    formControlName="otherLicensePlate"
-                    (input)="onInput($event)"
-                  />
-                  <mat-error
-                    *ngIf="
-                      firstFormGroup.controls['otherLicensePlate'].hasError(
-                        'required'
-                      )
-                    "
-                  >
-                    Valstybinis numeris yra privalomas
-                  </mat-error>
-                  <mat-error
-                    *ngIf="
-                      firstFormGroup.controls['otherLicensePlate'].hasError(
-                        'pattern'
-                      )
-                    "
-                  >
-                    Valstybinis numeris yra netinkamo formato
-                  </mat-error>
-                </mat-form-field>
-              </div>
-              <div class="pt-4">
-                <p>Kito vairuotojo El. Paštas</p>
-                <mat-form-field>
-                  <input
-                    matInput
-                    formControlName="otherEmail"
-                    placeholder="El. Paštas"
-                  />
-                </mat-form-field>
-              </div>
+            <div>
+              <p class="text-gray-600">Jūsų el. paštas</p>
+              <mat-form-field>
+                <input
+                  matInput
+                  formControlName="myEmail"
+                  placeholder="El. Paštas"
+                  class="mt-2"
+                />
+              </mat-form-field>
+            </div>
+            <div>
+              <p class="text-gray-600">Kito vairuotojo valstybiniai numeriai</p>
+              <mat-form-field>
+                <input
+                  matInput
+                  placeholder="XXX000"
+                  formControlName="otherLicensePlate"
+                  (input)="onInput($event)"
+                  class="mt-2"
+                />
+                <mat-error
+                  *ngIf="
+                    firstFormGroup.controls['otherLicensePlate'].hasError(
+                      'required'
+                    )
+                  "
+                  class="text-red-600"
+                >
+                  Valstybinis numeris yra privalomas
+                </mat-error>
+                <mat-error
+                  *ngIf="
+                    firstFormGroup.controls['otherLicensePlate'].hasError(
+                      'pattern'
+                    )
+                  "
+                  class="text-red-600"
+                >
+                  Valstybinis numeris yra netinkamo formato
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div>
+              <p class="text-gray-600">Kito vairuotojo el. paštas</p>
+              <mat-form-field>
+                <input
+                  matInput
+                  formControlName="otherEmail"
+                  placeholder="El. Paštas"
+                  class="mt-2"
+                />
+              </mat-form-field>
             </div>
           </div>
         </form>
       </mat-card-content>
-      <mat-card-actions>
-        <button mat-button matStepperPrevious>Atgal</button>
+      <mat-card-actions class="mt-4">
+        <button
+          mat-button
+          matStepperPrevious
+          class="mr-2 bg-gray-300 hover:bg-gray-400"
+        >
+          Atgal
+        </button>
         <button mat-raised-button color="primary" matStepperNext>Pirmyn</button>
       </mat-card-actions>
     </mat-card>
   </mat-step>
 
   <mat-step label="Piešimas">
-    <h1><strong>Eismo įvykio deklaracijos piešimas</strong></h1>
+    <h1 class="text-2xl font-bold mb-4">Eismo įvykio deklaracijos piešimas</h1>
     <mat-card-content>
       <div id="draw-area">
         <canvas
@@ -204,10 +213,12 @@
           style="border: 1px solid black"
         ></canvas>
       </div>
-      <button mat-raised-button (click)="clearCanvas()">Išvalyti</button>
+      <button mat-raised-button class="mt-6" (click)="clearCanvas()">
+        Išvalyti
+      </button>
     </mat-card-content>
 
-    <mat-card-actions>
+    <mat-card-actions class="mt-8">
       <button mat-button matStepperPrevious>Atgal</button>
       <button mat-raised-button color="primary" matStepperNext>Pirmyn</button>
     </mat-card-actions>
@@ -215,30 +226,41 @@
 
   <mat-step [stepControl]="timeAndPlace">
     <ng-template matStepLabel>Eismo įvykio laikas ir vieta</ng-template>
-    <h1><strong>Eismo įvykio laikas ir vieta</strong></h1>
-    <mat-card>
+    <h1 class="font-bold text-xl mb-6">Eismo įvykio laikas ir vieta</h1>
+    <mat-card class="w-full">
       <mat-card-content>
-        <form [formGroup]="timeAndPlace">
-          <div>
-            <mat-form-field>
+        <form [formGroup]="timeAndPlace" class="flex flex-col space-y-4">
+          <div class="flex space-x-4">
+            <mat-form-field class="flex-1">
               <input
                 matInput
                 type="time"
                 formControlName="time"
                 placeholder="Laikas"
+                class="w-full"
               />
             </mat-form-field>
-            <mat-form-field>
-              <input matInput formControlName="lat" placeholder="Platuma" />
+            <mat-form-field class="flex-1">
+              <input
+                matInput
+                formControlName="lat"
+                placeholder="Platuma"
+                class="w-full"
+              />
             </mat-form-field>
-            <mat-form-field>
-              <input matInput formControlName="lng" placeholder="Ilguma" />
+            <mat-form-field class="flex-1">
+              <input
+                matInput
+                formControlName="lng"
+                placeholder="Ilguma"
+                class="w-full"
+              />
             </mat-form-field>
           </div>
         </form>
       </mat-card-content>
-      <mat-card-actions>
-        <button mat-button matStepperPrevious>Atgal</button>
+      <mat-card-actions class="flex justify-end">
+        <button mat-button class="mr-4" matStepperPrevious>Atgal</button>
         <button mat-raised-button color="primary" matStepperNext>Pirmyn</button>
       </mat-card-actions>
     </mat-card>
@@ -246,82 +268,114 @@
 
   <mat-step [stepControl]="pictureGroup">
     <ng-template matStepLabel>Nuotraukos</ng-template>
-    <h1><strong>Nuotraukos</strong></h1>
-    <mat-card>
-      <mat-card-content>
-        <form [formGroup]="pictureGroup">
-          <h1>Įvykio vieta</h1>
-          <input
-            type="file"
-            formControlName="picture1"
-            (change)="onFileSelected1($event)"
-          />
-          <h1>
-            <strong>{{ myLicensePlateControl?.value }}</strong> Valstybiniai
-            numeriai
-          </h1>
-          <input
-            type="file"
-            formControlName="picture2"
-            (change)="onFileSelected2($event)"
-          />
-          <h1>
-            <strong>{{ myLicensePlateControl?.value }}</strong> Transporto
-            priemonės sugadinimai
-          </h1>
-          <input
-            type="file"
-            formControlName="picture3"
-            (change)="onFileSelected3($event)"
-          />
-
-          <h1>
-            <strong>{{ otherLicensePlateControl?.value }}</strong> Valstybiniai
-            numeriai
-          </h1>
-          <input
-            type="file"
-            formControlName="picture5"
-            (change)="onFileSelected5($event)"
-          />
-          <h1>
-            <strong>{{ otherLicensePlateControl?.value }}</strong> Transporto
-            priemonės sugadinimai
-          </h1>
-          <input
-            type="file"
-            formControlName="picture6"
-            (change)="onFileSelected6($event)"
-          />
-        </form>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-button matStepperPrevious>Atgal</button>
-        <button mat-raised-button color="primary" matStepperNext type="submit">
-          Pirmyn
-        </button>
-      </mat-card-actions>
-    </mat-card>
+    <div class="px-6 py-4">
+      <h1 class="text-xl font-bold mb-4"><strong>Nuotraukos</strong></h1>
+      <mat-card>
+        <mat-card-content>
+          <form [formGroup]="pictureGroup">
+            <h1 class="text-lg mb-4">Įvykio vieta</h1>
+            <div class="mb-4">
+              <input
+                id="picture1"
+                type="file"
+                formControlName="picture1"
+                (change)="onFileSelected1($event)"
+                class="border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 block w-full rounded-md shadow-sm"
+              />
+            </div>
+            <h1 class="text-lg mb-4">
+              <strong>{{ myLicensePlateControl?.value }}</strong> Valstybiniai
+              numeriai
+            </h1>
+            <div class="mb-4">
+              <input
+                id="picture2"
+                type="file"
+                formControlName="picture2"
+                (change)="onFileSelected2($event)"
+                class="border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 block w-full rounded-md shadow-sm"
+              />
+            </div>
+            <h1 class="text-lg mb-4">
+              <strong>{{ myLicensePlateControl?.value }}</strong> Transporto
+              priemonės sugadinimai
+            </h1>
+            <div class="mb-4">
+              <input
+                id="picture3"
+                type="file"
+                formControlName="picture3"
+                (change)="onFileSelected3($event)"
+                class="border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 block w-full rounded-md shadow-sm"
+              />
+            </div>
+            <h1 class="text-lg mb-4">
+              <strong>{{ otherLicensePlateControl?.value }}</strong>
+              Valstybiniai numeriai
+            </h1>
+            <div class="mb-4">
+              <input
+                id="picture5"
+                type="file"
+                formControlName="picture5"
+                (change)="onFileSelected5($event)"
+                class="border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 block w-full rounded-md shadow-sm"
+              />
+            </div>
+            <h1 class="text-lg mb-4">
+              <strong>{{ otherLicensePlateControl?.value }}</strong> Transporto
+              priemonės sugadinimai
+            </h1>
+            <div class="mb-4">
+              <input
+                id="picture6"
+                type="file"
+                formControlName="picture6"
+                (change)="onFileSelected6($event)"
+              />
+            </div>
+          </form>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button matStepperPrevious>Atgal</button>
+          <button
+            mat-raised-button
+            color="primary"
+            matStepperNext
+            type="submit"
+          >
+            Pirmyn
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
   </mat-step>
 
   <mat-step [stepControl]="hitGroup">
     <ng-template matStepLabel>Sugadinimai</ng-template>
-    <h1><strong>Sugadinimai</strong></h1>
-    <mat-card>
-      <!-- make for 2 cars -->
+    <h1 class="text-2xl font-bold mb-4"><strong>Sugadinimai</strong></h1>
+    <mat-card class="bg-white rounded-lg shadow-md">
       <mat-card-content>
         <form [formGroup]="hitGroup">
-          <mat-form-field>
-            <mat-label>Pasirinkti pirminį smūgį</mat-label>
-            <mat-select formControlName="myFirstHit">
+          <mat-form-field class="w-full mb-4">
+            <mat-label
+              >Pasirinkti
+              <strong>{{ myLicensePlateControl?.value }}</strong> pirminį
+              smūgį</mat-label
+            >
+            <mat-select formControlName="myFirstHit" class="w-full">
               <mat-option *ngFor="let hit of hits" [value]="hit">
                 {{ hit }}
               </mat-option>
             </mat-select>
           </mat-form-field>
-          <mat-form-field>
-            <mat-label>Pasirinkti pirminį smūgį</mat-label>
-            <mat-select formControlName="otherFirstHit">
+          <mat-form-field class="w-full mb-4">
+            <mat-label
+              >Pasirinkti
+              <strong>{{ otherLicensePlateControl?.value }}</strong> pirminį
+              smūgį</mat-label
+            >
+            <mat-select formControlName="otherFirstHit" class="w-full">
               <mat-option *ngFor="let hit of hits" [value]="hit">
                 {{ hit }}
               </mat-option>
@@ -329,7 +383,7 @@
           </mat-form-field>
         </form>
       </mat-card-content>
-      <mat-card-actions>
+      <mat-card-actions class="flex justify-end">
         <button mat-button matStepperPrevious>Atgal</button>
         <button mat-raised-button color="primary" matStepperNext>Pirmyn</button>
       </mat-card-actions>
@@ -337,8 +391,8 @@
   </mat-step>
 
   <mat-step [stepControl]="hitGroup">
-    <ng-template matStepLabel>Aplinkybės</ng-template>
-    <h1><strong>Aplinkybės</strong></h1>
+    <ng-template matStepLabel> Aplinkybės </ng-template>
+    <h1 class="text-2xl font-bold mb-4"><strong>Aplinkybės</strong></h1>
     <mat-card>
       <mat-card-content class="flex flex-col justify-center items-center">
         <form [formGroup]="howGroup" class="w-full max-w-md">
@@ -360,7 +414,7 @@
           </div>
         </form>
       </mat-card-content>
-      <mat-card-actions>
+      <mat-card-actions class="flex justify-between">
         <button mat-button matStepperPrevious>Atgal</button>
         <button mat-raised-button color="primary" matStepperNext>Pirmyn</button>
       </mat-card-actions>
@@ -479,6 +533,25 @@
                   placeholder="Vairuotojo pažymėjimo nr."
                 />
               </mat-form-field>
+              <form [formGroup]="radioGroup">
+                <mat-radio-group
+                  formControlName="kaltininkas"
+                  class="flex flex-col"
+                >
+                  <mat-radio-button value="Kaltininkas1"
+                    >Kaltininkas
+                    {{
+                      firstFormGroup.get("myLicensePlate")?.value
+                    }}</mat-radio-button
+                  >
+                  <mat-radio-button value="Kaltininkas2"
+                    >Kaltininkas
+                    {{
+                      firstFormGroup.get("otherLicensePlate")?.value
+                    }}</mat-radio-button
+                  >
+                </mat-radio-group>
+              </form>
             </div>
           </div>
         </form>
