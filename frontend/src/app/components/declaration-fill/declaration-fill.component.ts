@@ -62,6 +62,7 @@ export class DeclarationFillComponent implements AfterViewInit, OnInit {
   hitGroup!: FormGroup;
   howGroup!: FormGroup;
   driverData!: FormGroup;
+  radioGroup!: FormGroup;
 
   declarationImage!: string;
 
@@ -137,6 +138,9 @@ export class DeclarationFillComponent implements AfterViewInit, OnInit {
   lat!: number;
   lng!: number;
   userInfo: any;
+
+  selectedKaltininkas!: string;
+  kaltininkasLicensePlate!: string;
 
   get myHowControl() {
     return this.howGroup.get('myHow') as FormArray;
@@ -296,6 +300,10 @@ export class DeclarationFillComponent implements AfterViewInit, OnInit {
         idNumber: ['123456', Validators.pattern(/^\d{6}$/)],
       }),
     });
+
+    this.radioGroup = this._formBuilder.group({
+      kaltininkas: '',
+    });
   }
 
   onMyHowChange(event: MatCheckboxChange, value: string) {
@@ -325,6 +333,14 @@ export class DeclarationFillComponent implements AfterViewInit, OnInit {
   }
 
   sendData() {
+    if (this.radioGroup.get('kaltininkas')?.value == 'Kaltininkas1') {
+      this.kaltininkasLicensePlate =
+        this.firstFormGroup.get('myLicensePlate')?.value;
+    } else {
+      this.kaltininkasLicensePlate =
+        this.firstFormGroup.get('otherLicensePlate')?.value;
+    }
+
     this.data = {
       myLicensePlate: this.firstFormGroup.get('myLicensePlate')?.value,
       otherLicensePlate: this.firstFormGroup.get('otherLicensePlate')?.value,
@@ -472,7 +488,7 @@ export class DeclarationFillComponent implements AfterViewInit, OnInit {
                         alignment: 'right',
                       },
                       {
-                        text: `${this.data.time} \n ${this.data.lat} \n ${this.data.lng} \n MIM323`,
+                        text: `${this.data.time} \n ${this.data.lat} \n ${this.data.lng} \n ${this.kaltininkasLicensePlate}`,
                         bold: true,
                         color: '#333333',
                         fontSize: 12,
@@ -515,7 +531,7 @@ export class DeclarationFillComponent implements AfterViewInit, OnInit {
               alignment: 'left',
             },
             {
-              text: 'Petras \n Petraitis \n 2000-03-21 \n  \n 123456 \n AAA111',
+              text: `${this.data.secondDriverName} \n ${this.data.secondDriverSurname} \n ${this.data.secondDriverBirthDate} \n  \n ${this.data.secondDriverIdNumber} \n ${this.data.otherLicensePlate}`,
               bold: true,
               color: '#333333',
               alignment: 'left',
@@ -541,11 +557,11 @@ export class DeclarationFillComponent implements AfterViewInit, OnInit {
         {
           columns: [
             {
-              text: '+37060079911 \n mimciks@gmail.com',
+              text: `${this.data.firstDriverPhoneNumber} \n ${this.data.myEmail}`,
               style: 'invoiceBillingAddress',
             },
             {
-              text: '+37060079911 \n mimciks@gmail.com',
+              text: `${this.data.secondDriverPhoneNumber} \n ${this.data.otherEmail}`,
               style: 'invoiceBillingAddress',
             },
           ],
@@ -569,11 +585,11 @@ export class DeclarationFillComponent implements AfterViewInit, OnInit {
         {
           columns: [
             {
-              text: '9999 Street name 1A \n Lietuva',
+              text: `${this.data.firstDriverStreet} \n ${this.data.firstDriverCountry}`,
               style: 'invoiceBillingAddress',
             },
             {
-              text: '1111 Other street 25 \n Lietuva',
+              text: `${this.data.secondDriverStreet} \n ${this.data.secondDriverCountry}`,
               style: 'invoiceBillingAddress',
             },
           ],
@@ -611,13 +627,13 @@ export class DeclarationFillComponent implements AfterViewInit, OnInit {
         {
           columns: [
             {
-              text: 'Pirminis smūgis: smugis \n įvykio dėtalės: žiedas \n',
+              text: `Pirminis smūgis: ${this.data.myFirstHit} \n Įvykio dėtalės: ${this.data.myHow} \n`,
               bold: true,
               color: '#333333',
               alignment: 'left',
             },
             {
-              text: 'Pirminis smūgis: smugis \n įvykio dėtalės: žiedas \n',
+              text: `Pirminis smūgis: ${this.data.otherFirstHit} \n Įvykio dėtalės: ${this.data.otherHow} \n`,
               bold: true,
               color: '#333333',
               alignment: 'left',
@@ -627,29 +643,34 @@ export class DeclarationFillComponent implements AfterViewInit, OnInit {
         '\n\n\n\n',
         {
           image: this.declarationImage,
-          width: 350,
+          width: 500,
           alignment: 'center',
         },
-        // {
-        //   image: '',
-        //   width: 350,
-        //   alignment: 'center',
-        // },
-        // {
-        //   image: '',
-        //   width: 350,
-        //   alignment: 'center',
-        // },
-        // {
-        //   image: '',
-        //   width: 350,
-        //   alignment: 'center',
-        // },
-        // {
-        //   image: '',
-        //   width: 350,
-        //   alignment: 'center',
-        // },
+        {
+          image: this.picture1Base64,
+          width: 500,
+          alignment: 'center',
+        },
+        {
+          image: this.picture2Base64,
+          width: 500,
+          alignment: 'center',
+        },
+        {
+          image: this.picture3Base64,
+          width: 500,
+          alignment: 'center',
+        },
+        {
+          image: this.picture5Base64,
+          width: 500,
+          alignment: 'center',
+        },
+        {
+          image: this.picture6Base64,
+          width: 500,
+          alignment: 'center',
+        },
       ],
       styles: {
         notesTitle: {
