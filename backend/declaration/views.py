@@ -40,3 +40,11 @@ def declaration_create(request):
     email.send()
 
     return HttpResponse('PDF received')
+
+
+@api_view(['GET'])
+@csrf_exempt
+def pdf_list(request):
+    pdf_files = PDFFile.objects.all()
+    pdf_list = [{'id': pdf.id, 'name': pdf.name} for pdf in pdf_files]
+    return JsonResponse({'pdf_list': pdf_list})
