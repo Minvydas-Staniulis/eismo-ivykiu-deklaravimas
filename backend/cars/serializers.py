@@ -4,9 +4,9 @@ from .models import Car
 
 class CarSerializer(serializers.ModelSerializer):
     license_plate = serializers.RegexField(
-        regex=r'^[A-Z]{3}\d{3}$',
+        regex=r'^(?=.*[0-9]|EV[0-9]{4})[A-Z0-9]{1,6}$',
         max_length=6,
-        min_length=6,
+        min_length=1,
         error_messages={
             'invalid': 'License plate must be in format XXX000'
         }
