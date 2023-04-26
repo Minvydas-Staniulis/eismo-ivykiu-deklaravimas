@@ -558,7 +558,12 @@
       </mat-card-content>
       <mat-card-actions>
         <button mat-button matStepperPrevious>Atgal</button>
-        <button mat-raised-button color="primary" (click)="sendData()">
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="sendData()"
+          [disabled]="!driverData.valid"
+        >
           Patvirtinti
         </button>
       </mat-card-actions>

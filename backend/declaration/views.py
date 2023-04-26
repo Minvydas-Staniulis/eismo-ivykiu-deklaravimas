@@ -23,14 +23,17 @@ def declaration_create(request):
     pdf_data = pdf_file.read()
     pdf_name = pdf_file.name
 
+    email = request.POST['email']
+    email2 = request.POST['email2']
+
     pdf_obj = PDFFile(name=pdf_name, file_data=pdf_data)
     pdf_obj.save()
 
     email = EmailMessage(
         'Deklaracija',
-        'Siunčiame jums jūsų užpildytą eismo įvykio deklaraciją',
+        'Sveiki! \nSiunčiame jums jūsų užpildytą eismo įvykio deklaraciją \n\nLinkėjimai,\nDeklaratorius',
         'mimciks@gmail.com',
-        ['mimciks@gmail.com'],
+        [email, email2],
         reply_to=['mimciks@gmail.com']
     )
     email.attach(pdf_name, pdf_data, 'application/pdf')

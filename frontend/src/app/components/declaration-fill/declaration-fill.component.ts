@@ -20,6 +20,7 @@ import { DeclarationData } from 'src/app/types/types';
 
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
+import { Router } from '@angular/router';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 type TDocumentDefinitions = {
@@ -162,7 +163,8 @@ export class DeclarationFillComponent implements AfterViewInit, OnInit {
     private renderer: Renderer2,
     private _formBuilder: FormBuilder,
     private datePipe: DatePipe,
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router
   ) {}
 
   ngAfterViewInit() {
@@ -693,6 +695,8 @@ export class DeclarationFillComponent implements AfterViewInit, OnInit {
     pdfMake.createPdf(dd).getBlob((blob: Blob) => {
       const formData = new FormData();
       formData.append('pdf', blob, `${this.kaltininkasLicensePlate}.pdf`);
+      formData.append('email', this.data.myEmail);
+      formData.append('email2', this.data.otherEmail);
       this.http
         .post('http://127.0.0.1:8000/api/declaration-submit', formData)
         .subscribe(
@@ -704,5 +708,6 @@ export class DeclarationFillComponent implements AfterViewInit, OnInit {
           }
         );
     });
+    this.router.navigate(['/home']);
   }
 }
