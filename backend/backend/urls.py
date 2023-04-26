@@ -5,7 +5,7 @@ from rest_framework.routers import DefaultRouter
 from cars.views import car_list, car_detail, car_create, car_update, car_delete
 from carsMake.views import car_make_list
 from carsModel.views import car_model_list
-from declaration.views import declaration_create, pdf_list
+from declaration.views import declaration_create, pdf_list, download_pdf
 from news.views import news_list
 
 router = DefaultRouter()
@@ -27,6 +27,7 @@ urlpatterns = [
     # declaration
     path('api/declaration-submit', declaration_create, name='declaration_create'),
     path('api/declaration-list', pdf_list, name='pdf_list'),
+    path('api/download-pdf/<int:pdf_id>/', download_pdf, name='download_pdf'),
 
     # news
     path('api/news', news_list, name='news_list'),

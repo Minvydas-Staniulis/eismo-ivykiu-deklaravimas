@@ -6,6 +6,7 @@ from django.core.mail import EmailMessage
 
 from django.conf import settings
 from django.core.files.base import ContentFile
+from django.shortcuts import get_object_or_404
 
 from fpdf import FPDF
 from django.http import HttpResponse
@@ -48,3 +49,10 @@ def pdf_list(request):
     pdf_files = PDFFile.objects.all()
     pdf_list = [{'id': pdf.id, 'name': pdf.name} for pdf in pdf_files]
     return JsonResponse({'pdf_list': pdf_list})
+
+
+def download_pdf(request, pdf_id):
+    pdf = get_object_or_404(PDFFile, id=pdf_id)
+    response = HttpResponse(pdf.file_data, content_type='application/pdf')
+    response['Content-Disposition'] = f'attachment; filename="{pdf.name}.pdf"'
+    return response
