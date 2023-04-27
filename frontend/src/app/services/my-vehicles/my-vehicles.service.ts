@@ -50,4 +50,11 @@ export class MyVehiclesService {
     const url = this.baseUrl + `car-models/?make_id=${makeId}`;
     return this.http.get<any[]>(url);
   }
+
+  deleteCar(carId: number) {
+    const url = this.baseUrl + `cars/${carId}/delete/`;
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Token ${token}`);
+    return this.http.delete(url, { headers });
+  }
 }

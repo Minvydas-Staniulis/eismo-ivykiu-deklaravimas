@@ -4,6 +4,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MyVehiclesService } from 'src/app/services/my-vehicles/my-vehicles.service';
 import { MyVehiclesDialogComponent } from './my-vehicles-dialog/my-vehicles-dialog/my-vehicles-dialog.component';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-my-vehicles',
@@ -11,7 +12,14 @@ import { MyVehiclesDialogComponent } from './my-vehicles-dialog/my-vehicles-dial
   styleUrls: ['./my-vehicles.component.scss'],
 })
 export class MyVehiclesComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'make', 'model', 'year', 'license_plate'];
+  displayedColumns: string[] = [
+    'id',
+    'make',
+    'model',
+    'year',
+    'license_plate',
+    'actions',
+  ];
   cars!: any[];
 
   dataSource!: MatTableDataSource<any>;
@@ -44,6 +52,26 @@ export class MyVehiclesComponent implements OnInit {
       this.dataSource = new MatTableDataSource(cars);
       this.totalItems = cars.length;
       this.dataSource.paginator = this.paginator;
+    });
+  }
+
+  deleteCar(car: any) {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      data: { message: 'Ar tikrai norite ištrinti šią transporto priemonę?' },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.carService.deleteCar(car.id).subscribe(
+          () => {
+            const index = this.dataSource.data.indexOf(car);
+            this.dataSource.data.splice(index, 1);
+            this.dataSource._updateChangeSubscription();
+            console.log('Car deleted');
+          },
+          (error) => console.error(error)
+        );
+      }
     });
   }
 

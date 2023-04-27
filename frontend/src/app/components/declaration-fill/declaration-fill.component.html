@@ -88,14 +88,21 @@
         <button mat-raised-button color="accent" matStepperPrevious>
           Atgal
         </button>
-        <button mat-raised-button color="primary" matStepperNext>Pirmyn</button>
+        <button
+          mat-raised-button
+          color="primary"
+          matStepperNext
+          [disabled]="!acceptTerms.valid"
+        >
+          Pirmyn
+        </button>
       </mat-card-actions>
     </mat-card>
   </mat-step>
 
   <mat-step [stepControl]="firstFormGroup">
     <ng-template matStepLabel>Vairuotojų duomenys</ng-template>
-    <h1 class="text-2xl font-bold mb-4">Vairuotojų duomenys</h1>
+    <h1><strong>Vairuotojų duomenys</strong></h1>
     <mat-card>
       <mat-card-content>
         <form [formGroup]="firstFormGroup" class="flex flex-col">
@@ -197,13 +204,20 @@
         >
           Atgal
         </button>
-        <button mat-raised-button color="primary" matStepperNext>Pirmyn</button>
+        <button
+          mat-raised-button
+          color="primary"
+          matStepperNext
+          [disabled]="!firstFormGroup.valid"
+        >
+          Pirmyn
+        </button>
       </mat-card-actions>
     </mat-card>
   </mat-step>
 
   <mat-step label="Piešimas">
-    <h1 class="text-2xl font-bold mb-4">Eismo įvykio deklaracijos piešimas</h1>
+    <h1><strong>Eismo įvykio deklaracijos piešimas</strong></h1>
     <mat-card-content>
       <div id="draw-area">
         <canvas
@@ -226,7 +240,7 @@
 
   <mat-step [stepControl]="timeAndPlace">
     <ng-template matStepLabel>Eismo įvykio laikas ir vieta</ng-template>
-    <h1 class="font-bold text-xl mb-6">Eismo įvykio laikas ir vieta</h1>
+    <h1><strong>Eismo įvykio laikas ir vieta</strong></h1>
     <mat-card class="w-full">
       <mat-card-content>
         <form [formGroup]="timeAndPlace" class="flex flex-col space-y-4">
@@ -261,7 +275,14 @@
       </mat-card-content>
       <mat-card-actions class="flex justify-end">
         <button mat-button class="mr-4" matStepperPrevious>Atgal</button>
-        <button mat-raised-button color="primary" matStepperNext>Pirmyn</button>
+        <button
+          mat-raised-button
+          color="primary"
+          matStepperNext
+          [disabled]="!timeAndPlace.valid"
+        >
+          Pirmyn
+        </button>
       </mat-card-actions>
     </mat-card>
   </mat-step>
@@ -269,7 +290,7 @@
   <mat-step [stepControl]="pictureGroup">
     <ng-template matStepLabel>Nuotraukos</ng-template>
     <div class="px-6 py-4">
-      <h1 class="text-xl font-bold mb-4"><strong>Nuotraukos</strong></h1>
+      <h1><strong>Nuotraukos</strong></h1>
       <mat-card>
         <mat-card-content>
           <form [formGroup]="pictureGroup">
@@ -343,6 +364,7 @@
             color="primary"
             matStepperNext
             type="submit"
+            [disabled]="!pictureGroup.valid"
           >
             Pirmyn
           </button>
@@ -353,7 +375,7 @@
 
   <mat-step [stepControl]="hitGroup">
     <ng-template matStepLabel>Sugadinimai</ng-template>
-    <h1 class="text-2xl font-bold mb-4"><strong>Sugadinimai</strong></h1>
+    <h1><strong>Sugadinimai</strong></h1>
     <mat-card class="bg-white rounded-lg shadow-md">
       <mat-card-content>
         <form [formGroup]="hitGroup">
@@ -385,14 +407,21 @@
       </mat-card-content>
       <mat-card-actions class="flex justify-end">
         <button mat-button matStepperPrevious>Atgal</button>
-        <button mat-raised-button color="primary" matStepperNext>Pirmyn</button>
+        <button
+          mat-raised-button
+          color="primary"
+          matStepperNext
+          [disabled]="!hitGroup.valid"
+        >
+          Pirmyn
+        </button>
       </mat-card-actions>
     </mat-card>
   </mat-step>
 
-  <mat-step [stepControl]="hitGroup">
+  <mat-step [stepControl]="howGroup">
     <ng-template matStepLabel> Aplinkybės </ng-template>
-    <h1 class="text-2xl font-bold mb-4"><strong>Aplinkybės</strong></h1>
+    <h1><strong>Aplinkybės</strong></h1>
     <mat-card>
       <mat-card-content class="flex flex-col justify-center items-center">
         <form [formGroup]="howGroup" class="w-full max-w-md">
@@ -416,7 +445,14 @@
       </mat-card-content>
       <mat-card-actions class="flex justify-between">
         <button mat-button matStepperPrevious>Atgal</button>
-        <button mat-raised-button color="primary" matStepperNext>Pirmyn</button>
+        <button
+          mat-raised-button
+          color="primary"
+          matStepperNext
+          [disabled]="!howGroup.valid"
+        >
+          Pirmyn
+        </button>
       </mat-card-actions>
     </mat-card>
   </mat-step>

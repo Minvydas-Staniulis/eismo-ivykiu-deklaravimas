@@ -1,10 +1,15 @@
-<div class="flex flex-col pb-2">
-  <div *ngFor="let news of newsData" class="bg-white rounded-lg shadow-md mb-4">
-    <mat-card class="p-4">
-      <h1 class="text-1xl font-bold mb-4">{{ news.title }}</h1>
-      <p class="text-gray-600">
-        {{ news.description }}
-      </p>
-    </mat-card>
+<header class="bg-gray-800 py-4">
+  <div class="max-w-4xl mx-auto">
+    <h1 class="text-3xl font-bold text-white">Naujienos</h1>
+  </div>
+</header>
+<div class="max-w-4xl mx-auto mt-8">
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+    <div *ngFor="let news of newsData" class="bg-white rounded-lg shadow-md">
+      <mat-card class="p-6">
+        <h1 class="text-lg font-bold mb-4">{{ news.title }}</h1>
+        <p class="text-gray-600 mb-4">{{ news.description }}</p>
+      </mat-card>
+    </div>
   </div>
 </div>
