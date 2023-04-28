@@ -21,6 +21,8 @@ import { DeclarationData } from 'src/app/types/types';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { LicensePlateDialogComponent } from './license-plate-dialog/license-plate-dialog.component';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 type TDocumentDefinitions = {
@@ -164,7 +166,8 @@ export class DeclarationFillComponent implements AfterViewInit, OnInit {
     private _formBuilder: FormBuilder,
     private datePipe: DatePipe,
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) {}
 
   ngAfterViewInit() {
@@ -709,5 +712,15 @@ export class DeclarationFillComponent implements AfterViewInit, OnInit {
         );
     });
     this.router.navigate(['/home']);
+  }
+
+  openDialog() {
+    const dialogRef = this.dialog.open(LicensePlateDialogComponent);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.firstFormGroup.get('myLicensePlate')?.setValue(result);
+      }
+    });
   }
 }

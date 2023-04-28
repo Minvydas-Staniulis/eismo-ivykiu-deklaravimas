@@ -42,6 +42,7 @@ import { DatePipe } from '@angular/common';
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import { ConfirmationDialogComponent } from './components/my-vehicles/confirmation-dialog/confirmation-dialog.component';
+import { LicensePlateDialogComponent } from './components/declaration-fill/license-plate-dialog/license-plate-dialog.component';
 (pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
 
 @NgModule({
@@ -57,6 +58,7 @@ import { ConfirmationDialogComponent } from './components/my-vehicles/confirmati
     MyVehiclesDialogComponent,
     NewsComponent,
     ConfirmationDialogComponent,
+    LicensePlateDialogComponent,
   ],
   imports: [
     BrowserModule,
