@@ -694,7 +694,7 @@ export class DeclarationFillComponent implements AfterViewInit, OnInit {
     };
     const pdfMake = require('pdfmake/build/pdfmake.js');
 
-    pdfMake.createPdf(dd).download('test.pdf');
+    //pdfMake.createPdf(dd).download('test.pdf');
     pdfMake.createPdf(dd).getBlob((blob: Blob) => {
       const formData = new FormData();
       formData.append('pdf', blob, `${this.kaltininkasLicensePlate}.pdf`);

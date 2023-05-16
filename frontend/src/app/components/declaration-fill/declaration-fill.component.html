@@ -296,7 +296,7 @@
     </mat-card>
   </mat-step>
 
-  <mat-step [stepControl]="pictureGroup">
+  <!-- <mat-step [stepControl]="pictureGroup">
     <ng-template matStepLabel>Nuotraukos</ng-template>
     <div class="px-6 py-4">
       <h1><strong>Nuotraukos</strong></h1>
@@ -380,7 +380,7 @@
         </mat-card-actions>
       </mat-card>
     </div>
-  </mat-step>
+  </mat-step> -->
 
   <mat-step [stepControl]="hitGroup">
     <ng-template matStepLabel>Sugadinimai</ng-template>
@@ -434,21 +434,32 @@
     <mat-card>
       <mat-card-content class="flex flex-col justify-center items-center">
         <form [formGroup]="howGroup" class="w-full max-w-md">
-          <div *ngFor="let how of hows" class="flex flex-col items-start mb-2">
-            <div class="flex flex-row items-center mx-auto">
-              <mat-checkbox
-                [value]="how.value"
-                [checked]="how.checked"
-                (change)="onMyHowChange($event, how.label)"
-                class="mr-2"
-              ></mat-checkbox>
-              <p class="flex-1 mr-2 break-words text-center">{{ how.label }}</p>
-              <mat-checkbox
-                [value]="how.value"
-                [checked]="how.checked"
-                (change)="onOtherHowChange($event, how.label)"
-              ></mat-checkbox>
+          <div class="flex flex-row items-center">
+            <div class="flex-1">
+              <p>
+                <strong>{{ myLicensePlateControl?.value }}</strong>
+              </p>
             </div>
+            <div class="flex-1 text-right">
+              <p>
+                <strong>{{ otherLicensePlateControl?.value }}</strong>
+              </p>
+            </div>
+          </div>
+          <div *ngFor="let how of hows" class="flex flex-row items-center mb-2">
+            <mat-checkbox
+              [value]="how.value"
+              [checked]="how.checked"
+              (change)="onMyHowChange($event, how.label)"
+              class="mr-2"
+            ></mat-checkbox>
+            <div class="flex-1 text-center break-words">{{ how.label }}</div>
+            <mat-checkbox
+              [value]="how.value"
+              [checked]="how.checked"
+              (change)="onOtherHowChange($event, how.label)"
+              class="ml-2"
+            ></mat-checkbox>
           </div>
         </form>
       </mat-card-content>
